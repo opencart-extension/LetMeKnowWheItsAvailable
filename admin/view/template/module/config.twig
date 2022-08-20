@@ -45,10 +45,11 @@
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a href="#tab-general" class="nav-link active" data-bs-toggle="tab">General</a></li>
                         <li class="nav-item"><a href="#tab-notification" class="nav-link" data-bs-toggle="tab">Notification</a></li>
+                        <li class="nav-item"><a href="#tab-button-appearance" class="nav-link" data-bs-toggle="tab">Button Appearance</a></li>
                     </ul>
 
                     <div class="tab-content">
-                        <div id="tab-general" class="tab-pane">
+                        <div id="tab-general" class="tab-pane active">
                             <div class="row mb-3">
                                 <label for="input-status" class="col-sm-2 col-form-label">{{ entry_status }}</label>
                                 <div class="col-sm-10">
@@ -60,7 +61,7 @@
                             </div>
                         </div>
 
-                        <div id="tab-notification" class="tab-pane active">
+                        <div id="tab-notification" class="tab-pane">
                             <div class="row mb-3">
                                 <label for="input-notification-type" class="col-sm-2 col-form-label">{{ entry_notification_type }}</label>
                                 <div class="col-sm-10">
@@ -174,10 +175,99 @@
                                 <div class="alert alert-info">{{ text_redis_info }}</div>
                             </fieldset>
                         </div>
+
+                        <div id="tab-button-appearance" class="tab-pane">
+                            <div class="row">
+                                <div class="col">
+                                    <fieldset>
+                                        <legend>{{ text_button_title }}</legend>
+
+                                        {% for language in languages %}
+                                        <div class="row mb-3">
+                                            <label for="input-button-title" class="col-sm-3 col-form-label">
+                                                <img src="{{ language.image }}" alt="{{ language.name }}" />
+                                                {{ language.name }}
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="button_title[{{ language.language_id }}]" id="input-button-title" />
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>{{ text_button_colors }}</legend>
+
+                                        <div class="row mb-3">
+                                            <label for="input-button-background-color" class="col-sm-3 col-form-label">{{ entry_background_color }}</label>
+                                            <div class="col-sm-9">
+                                                <input type="color" name="" id="input-button-background-color" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="input-button-font-color" class="col-sm-3 col-form-label">{{ entry_font_color }}</label>
+                                            <div class="col-sm-9">
+                                                <input type="color" name="" id="input-button-font-color" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="input-button-border-color" class="col-sm-3 col-form-label">{{ entry_border_color }}</label>
+                                            <div class="col-sm-9">
+                                                <input type="color" name="" id="input-button-border-color" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend>{{ text_button_sizes }}</legend>
+
+                                        <div class="row mb-3">
+                                            <label for="input-button-size" class="col-sm-2 col-form-label">{{ entry_button_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="" id="input-button-size" class="form-control" />
+                                                <span class="text-form">{{ help_button_size }}</span>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="align-items-center col d-flex justify-content-center">
+                                    <input type="hidden" name="css_text" /> {# @todo Armazenar CSS do botão #}
+                                    <button type="button" id="button-example" class="btn"></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const buttonExample = document.querySelector('#button-example');
+
+    document.querySelector('#input-button-title').addEventListener('input', ev => {
+        buttonExample.textContent = ev.target.value;
+    });
+
+    document.querySelector('#input-button-background-color').addEventListener('input', ev => {
+        buttonExample.style.backgroundColor = ev.target.value;
+    });
+
+    document.querySelector('#input-button-font-color').addEventListener('input', ev => {
+        buttonExample.style.color = ev.target.value;
+    });
+
+    document.querySelector('#input-button-border-color').addEventListener('input', ev => {
+        buttonExample.style.borderColor = ev.target.value;
+    });
+
+    document.querySelector('#input-button-size').addEventListener('input', ev => {
+        buttonExample.style.width = ev.target.value;
+    });
+</script>
+
 {{ footer }}

@@ -36,6 +36,10 @@ class Config extends \OpenCart\System\Engine\Controller
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
 
+        $this->load->model('catalog/information');
+
+        $data['informations'] = $this->model_catalog_information->getInformations();
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');

@@ -44,6 +44,7 @@
                 <form id="form-module" action="{{ action }}" method="post" data-oc-toggle="ajax">
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a href="#tab-general" class="nav-link active" data-bs-toggle="tab">General</a></li>
+                        <li class="nav-item"><a href="#tab-notification" class="nav-link" data-bs-toggle="tab">Notification</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -57,6 +58,121 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+
+                        <div id="tab-notification" class="tab-pane active">
+                            <div class="row mb-3">
+                                <label for="input-notification-type" class="col-sm-2 col-form-label">{{ entry_notification_type }}</label>
+                                <div class="col-sm-10">
+                                    <select name="notification_type" id="input-notification-type" class="form-select">
+                                        <option value="default">OpenCart Default</option>
+                                        <option value="smtp">SMTP</option>
+                                        <option value="sqs">Amazon Simple Queue Service</option>
+                                        <option value="ses">Amazon Simple Email Service (Coming Soon)</option>
+                                        <option value="redis">Redis (Coming Soon)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            {# 
+                                @todo Exibir/esconder os fieldset conforme a configuração acima
+                             #}
+
+                            <fieldset>
+                                <legend>SMTP</legend>
+
+                                <div class="row mb-3">
+                                    <label for="input-smtp-hostname" class="col-sm-2 col-form-label">{{ entry_smtp_hostname }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-smtp-hostname" class="form-control" name="smtp_hostname" />
+                                        <span class="form-text">{{ help_smtp_hostname }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="input-smtp-username" class="col-sm-2 col-form-label">{{ entry_smtp_username }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-smtp-username" class="form-control" name="smtp_username" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="input-smtp-password" class="col-sm-2 col-form-label">{{ entry_smtp_password }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-smtp-password" class="form-control" name="smtp_password" />
+                                        <span class="form-text">{{ help_smtp_password }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="input-smtp-port" class="col-sm-2 col-form-label">{{ entry_smtp_port }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-smtp-port" class="form-control" name="smtp_port" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="input-smtp-timeout" class="col-sm-2 col-form-label">{{ entry_smtp_timeout }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-smtp-timeout" class="form-control" name="smtp_timeout" />
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Amazon Simple Queue Service</legend>
+
+                                <div class="alert alert-info" role="alert">{{ text_sqs_info }}</div>
+
+                                <div class="row mb-3">
+                                    <label for="input-sqs-access-key" class="col-sm-2 col-form-label">{{ entry_sqs_access_key }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-sqs-access-key" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="input-sqs-secret-key" class="col-sm-2 col-form-label">{{ entry_sqs_secret_key }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-sqs-secret-key" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="input-sqs-region" class="col-sm-2 col-form-label">{{ entry_sqs_region }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-sqs-region" class="form-control" />
+                                        <span class="form-txt">{{ help_sqs_region }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="input-sqs-queue-url" class="col-sm-2 col-form-label">{{ entry_sqs_queue_url }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-sqs-queue-url" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="input-sqs-queue-url" class="col-sm-2 col-form-label">{{ entry_sqs_total_emails }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="input-sqs-queue-url" class="form-control" />
+                                        <div class="form-text">{{ help_sqs_total_emails }}</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Amazon Simple Email Service</legend>
+
+                                <div class="alert alert-info">{{ text_ses_info }}</div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Redis</legend>
+
+                                <div class="alert alert-info">{{ text_redis_info }}</div>
+                            </fieldset>
                         </div>
                     </div>
                 </form>

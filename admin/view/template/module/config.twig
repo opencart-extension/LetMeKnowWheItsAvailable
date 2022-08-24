@@ -59,6 +59,7 @@
                                         <option value="1">{{ text_enabled }}</option>
                                         <option value="0">{{ text_disabled }}</option>
                                     </select>
+                                    <span id="error-status" class="invalid-feedback"></span>
                                 </div>
                             </div>
 
@@ -67,6 +68,7 @@
                                 <div class="col-sm-10">
                                     <input type="number" name="product_quantity" id="input-product-quantity" class="form-control" />
                                     <span class="form-text">{{ help_product_quantity }}</span>
+                                    <span id="error-product-quantity" class="invalid-feedback"></span>
                                 </div>
                             </div>
 
@@ -78,6 +80,7 @@
                                         <option value="{{ information.information_id }}">{{ information.title }}</option>
                                         {% endfor %}
                                     </select>
+                                    <span id="error-terms" class="invalid-feedback"></span>
                                 </div>
                             </div>
 
@@ -90,6 +93,7 @@
                                         <option value="modal-lg">Large</option>
                                         <option value="modal-xl">Extra Large</option>
                                     </select>
+                                    <span id="error-modal-size" class="invalid-feedback"></span>
                                 </div>
                             </div>
 
@@ -104,6 +108,7 @@
                                         </select>
                                         <span>{{ text_telemetry_doc }}
                                     </div>
+                                    <span id="error-telemetry" class="invalid-feedback"></span>
                                 </div>
                             </div>
 
@@ -111,6 +116,7 @@
                                 <label for="input-newsletter" class="col-sm-2 col-form-label">{{ entry_newsletter }}</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="newsletter" id="input-newsletter" class="form-control" />
+                                    <span id="error-newsletter" class="invalid-feedback"></span>
                                 </div>
                             </div>
                         </div>
@@ -126,6 +132,7 @@
                                         <option value="ses">Amazon Simple Email Service (Coming Soon)</option>
                                         <option value="redis">Redis (Coming Soon)</option>
                                     </select>
+                                    <span id="error-notification-type" class="invalid-feedback"></span>
                                 </div>
                             </div>
 
@@ -141,6 +148,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" id="input-smtp-hostname" class="form-control" name="smtp_hostname" />
                                         <span class="form-text">{{ help_smtp_hostname }}</span>
+                                        <span id="error-smtp-hostname" class="invalid-feedback"></span>
                                     </div>
                                 </div>
 
@@ -148,6 +156,7 @@
                                     <label for="input-smtp-username" class="col-sm-2 col-form-label">{{ entry_smtp_username }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="input-smtp-username" class="form-control" name="smtp_username" />
+                                        <span id="error-smtp-username" class="invalid-feedback"></span>
                                     </div>
                                 </div>
 
@@ -156,6 +165,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" id="input-smtp-password" class="form-control" name="smtp_password" />
                                         <span class="form-text">{{ help_smtp_password }}</span>
+                                        <span id="error-smtp-password" class="invalid-feedback"></span>
                                     </div>
                                 </div>
 
@@ -163,6 +173,7 @@
                                     <label for="input-smtp-port" class="col-sm-2 col-form-label">{{ entry_smtp_port }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="input-smtp-port" class="form-control" name="smtp_port" />
+                                        <span id="error-smtp-port" class="invalid-feedback"></span>
                                     </div>
                                 </div>
 
@@ -170,6 +181,7 @@
                                     <label for="input-smtp-timeout" class="col-sm-2 col-form-label">{{ entry_smtp_timeout }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="input-smtp-timeout" class="form-control" name="smtp_timeout" />
+                                        <span id="error-smtp-timeout" class="invalid-feedback"></span>
                                     </div>
                                 </div>
                             </fieldset>
@@ -183,6 +195,7 @@
                                     <label for="input-sqs-access-key" class="col-sm-2 col-form-label">{{ entry_sqs_access_key }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="input-sqs-access-key" name="sqs_access_key" class="form-control" />
+                                        <span id="error-sqs-access-key" class="invalid-feedback"></span>
                                     </div>
                                 </div>
 
@@ -190,6 +203,7 @@
                                     <label for="input-sqs-secret-key" class="col-sm-2 col-form-label">{{ entry_sqs_secret_key }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="input-sqs-secret-key" name="sqs_secret_key" class="form-control" />
+                                        <span id="error-sqs-secret-key" class="invalid-feedback"></span>
                                     </div>
                                 </div>
 
@@ -198,6 +212,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" id="input-sqs-region" name="sqs_region" class="form-control" />
                                         <span class="form-text">{{ help_sqs_region }}</span>
+                                        <span id="error-sqs-region" class="invalid-feedback"></span>
                                     </div>
                                 </div>
 
@@ -205,6 +220,7 @@
                                     <label for="input-sqs-queue-url" class="col-sm-2 col-form-label">{{ entry_sqs_queue_url }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="input-sqs-queue-url" name="sqs_queue_url" class="form-control" />
+                                        <span id="error-sqs-queue-url" class="invalid-feedback"></span>
                                     </div>
                                 </div>
 
@@ -213,6 +229,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" id="input-sqs-queue-batch" name="sqs_queue_batch" class="form-control" />
                                         <div class="form-text">{{ help_sqs_queue_batch }}</div>
+                                        <span id="error-sqs-queue-batch" class="invalid-feedback"></span>
                                     </div>
                                 </div>
                             </fieldset>
@@ -243,7 +260,8 @@
                                                 {{ language.name }}
                                             </label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="button_title[{{ language.language_id }}]" id="input-button-title" />
+                                                <input type="text" class="form-control" name="button_title[{{ language.language_id }}]" id="input-button-title-{{ language.language_id }}" />
+                                                <span id="error-button-title-{{ language.language_id }}" class="invalid-feedback"></span>
                                             </div>
                                         </div>
                                         {% endfor %}
@@ -256,6 +274,7 @@
                                             <label for="input-button-background-color" class="col-sm-3 col-form-label">{{ entry_background_color }}</label>
                                             <div class="col-sm-9">
                                                 <input type="color" name="button_background_color" id="input-button-background-color" />
+                                                <span id="error-button-background-color" class="invalid-feedback"></span>
                                             </div>
                                         </div>
 
@@ -263,6 +282,7 @@
                                             <label for="input-button-font-color" class="col-sm-3 col-form-label">{{ entry_font_color }}</label>
                                             <div class="col-sm-9">
                                                 <input type="color" name="button_font_color" id="input-button-font-color" />
+                                                <span id="error-button-font-color" class="invalid-feedback"></span>
                                             </div>
                                         </div>
 
@@ -270,6 +290,7 @@
                                             <label for="input-button-border-color" class="col-sm-3 col-form-label">{{ entry_border_color }}</label>
                                             <div class="col-sm-9">
                                                 <input type="color" name="button_border_color" id="input-button-border-color" />
+                                                <span id="error-button-border-color" class="invalid-feedback"></span>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -282,6 +303,7 @@
                                             <div class="col-sm-10">
                                                 <input type="text" name="button_size" id="input-button-size" class="form-control" />
                                                 <span class="form-text">{{ help_button_size }}</span>
+                                                <span id="error-button-size" class="invalid-feedback"></span>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -301,17 +323,20 @@
                                 <div class="col-6 mb-3 form-check">
                                     <input type="checkbox" id="input-modal-field-name" checked disabled />
                                     <label for="input-modal-field-name" class="col-sm-2 col-form-control">Name</label>
+                                    <span id="error-modal-field-name" class="invalid-feedback"></span>
                                 </div>
 
                                 <div class="col-6 mb-3 form-check">
                                     <input type="checkbox" id="input-modal-field-email" checked disabled />
                                     <label for="input-modal-field-email" class="col-sm-2 col-form-control">E-mail</label>
+                                    <span id="error-modal-field-email" class="invalid-feedback"></span>
                                 </div>
 
                                 {% for custom_field in custom_fields %}
                                 <div class="col-6 mb-3 form-check">
                                     <input type="checkbox" name="modal_custom_fields[]" id="input-modal-fields-{{ custom_field.custom_field_id }}" />
                                     <label for="input-modal-fields-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-control">{{ custom_field.name }}</label>
+                                    <span id="error-modal-fields-{{ custom_field.custom_field_id }}" class="invalid-feedback"></span>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -363,6 +388,7 @@
                                 <div class="col">
                                     <label for="input-template-html" class="col-sm-2 col-form-label">HTML</label>
                                     <textarea name="template_html" id="input-template-html" rows="25" class="p-3 w-100"></textarea>
+                                    <span id="error-template-html" class="invalid-feedback"></span>
                                 </div>
 
                                 <div class="col">
@@ -381,9 +407,11 @@
 <script>
     const buttonExample = document.querySelector('#button-example');
 
-    document.querySelector('#input-button-title').addEventListener('input', ev => {
-        buttonExample.textContent = ev.target.value;
-    });
+    document.querySelectorAll('[id^="input-button-title"]').forEach((el) =>
+        el.addEventListener('input', ev => {
+            buttonExample.textContent = ev.target.value;
+        })
+    )
 
     document.querySelector('#input-button-background-color').addEventListener('input', ev => {
         buttonExample.style.backgroundColor = ev.target.value;

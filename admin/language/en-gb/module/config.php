@@ -15,6 +15,7 @@ $_['text_redis_info'] = 'Entre em contato com <a href="https://valdeir.dev/" tar
 $_['text_button_title'] = 'Texto do botão';
 $_['text_button_colors'] = 'Cores do botão';
 $_['text_button_sizes'] = 'Tamanho do Botão';
+$_['text_success'] = 'Configurações alteradas com sucesso';
 
 // Entry
 $_['entry_status'] = 'Status';
@@ -46,3 +47,8 @@ $_['help_sqs_region'] = 'Access <a href="https://docs.aws.amazon.com/AmazonRDS/l
 $_['help_sqs_queue_batch'] = 'Informe o total de e-mail que deverão ser enviados por fila';
 $_['help_button_size'] = 'Qualquer valor CSS disponível: 100px, 100% etc';
 $_['help_new_custom_field'] = 'Acesse <a href="%s">Campos Personalizados</a> para criar novos campos ou habilitar os já existentes';
+
+// Error
+$_['error_required_field'] = 'Campo obrigatório';
+$_['error_info'] = 'Erro ao salvar configurações';
+$_['error_permission'] = 'Atenção! Você não tem permissão para alterar as configurações';

@@ -3,10 +3,17 @@ namespace OpenCart\Admin\Controller\Extension\LetMeKnowWheItsAvailable\Module;
 
 class Config extends \OpenCart\System\Engine\Controller
 {
+    const EXTENSION_VERSION = '1.0.0';
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
     const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
+    const EXTENSION_MODEL = 'model_extension_' . self::EXTENSION_CODE . '_module';
 
+    /**
+     * Exibe o formulário de configuração para o usuário
+     * 
+     * @return void
+     */
     public function index(): void
     {
         $data = [];
@@ -57,6 +64,67 @@ class Config extends \OpenCart\System\Engine\Controller
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/config', $data));
+    }
+
+    /**
+     * Valida e salva os dados na tabela de configuração
+     * 
+     * @return void
+     */
+    public function save(): void
+    {
+        $this->load->language(self::EXTENSION_PATH_MODULE . '/config');
+
+        $json = [];
+
+        $fields = $this->getFields();
+
+        foreach ($fields as $field => $value) {
+            if (preg_match('/^smtp_/', $field) && $this->request->post['notification_type'] !== 'smtp') {
+                continue;
+            }
+
+            if (preg_match('/^sqs_/', $field) && $this->request->post['notification_type'] !== 'sqs') {
+                continue;
+            }
+
+            if ($value['required']) {
+                if (empty($this->request->post[$field])) {
+                    $json['error'][$field] = $this->language->get('error_required_field');
+                } else if (is_array($this->request->post[$field])) {
+                    foreach ($this->request->post[$field] as $language_id => $text) {
+                        if (empty($text)) {
+                            $json['error'][$field . '-' . $language_id] = $this->language->get('error_required_field');
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($json) {
+            $json['error']['warning'] = $this->language->get('error_info');
+        }
+
+        if (!$this->user->hasPermission('modify', self::EXTENSION_PATH_MODULE . '/module/config')) {
+            $json['error']['warning'] = $this->language->get('error_permission');
+        }
+
+        $data_keys = array_map(fn($key) => self::EXTENSION_PREFIX . $key, array_keys($this->request->post));
+        $data = array_combine($data_keys, array_values($this->request->post));
+
+        if ($json) {
+            $this->load->model('setting/setting');
+
+            $data_keys = array_map(fn($key) => self::EXTENSION_PREFIX . $key, array_keys($this->request->post));
+            $data = array_combine($data_keys, array_values($this->request->post));
+
+            $this->model_setting_setting(self::EXTENSION_PREFIX, $data);
+
+            $json['success'] = $this->language->get('text_success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
     }
 
     /**

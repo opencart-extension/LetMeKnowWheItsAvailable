@@ -47,6 +47,7 @@
                         <li class="nav-item"><a href="#tab-notification" class="nav-link" data-bs-toggle="tab">Notification</a></li>
                         <li class="nav-item"><a href="#tab-button-appearance" class="nav-link" data-bs-toggle="tab">Button Appearance</a></li>
                         <li class="nav-item"><a href="#tab-modal-fields" class="nav-link" data-bs-toggle="tab">Modal Fields</a></li>
+                        <li class="nav-item"><a href="#tab-template" class="nav-link" data-bs-toggle="tab">Template</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -315,6 +316,61 @@
                                 {% endfor %}
                             </div>
                         </div>
+
+                        <div id="tab-template" class="tab-pane">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="alert alert-info">
+                                        <p><b>Variables</b></p>
+
+                                        <table class="table w-50">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ '{{ customer_name }}' }}</td>
+                                                    <td>Nome do usuário</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ '{{ customer_email }}' }}</td>
+                                                    <td>E-mail do usuário</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ '{{ product_name }}' }}</td>
+                                                    <td>Nome do Produto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ '{{ product_price }}' }}</td>
+                                                    <td>Preço do Produto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ '{{ product_image }}' }}</td>
+                                                    <td>Imagem do Produto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ '{{ product_description }}' }}</td>
+                                                    <td>Descrição do Produto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ '{{ product_link }}' }}</td>
+                                                    <td>Link do Produto</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="input-template-html" class="col-sm-2 col-form-label">HTML</label>
+                                    <textarea name="template_html" id="input-template-html" rows="25" class="p-3 w-100"></textarea>
+                                </div>
+
+                                <div class="col">
+                                    <span class="col-sm-2 col-form-label">Preview</span>
+                                    <div id="template-preview"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -344,6 +400,12 @@
     document.querySelector('#input-button-size').addEventListener('input', ev => {
         buttonExample.style.width = ev.target.value;
     });
-</script>
 
+    const templatePreview = document.querySelector('#template-preview')
+        .attachShadow({ mode: 'open' });
+
+    document.querySelector('#input-template-html').addEventListener('input', ev => {
+        templatePreview.innerHTML = ev.target.value;
+    })
+</script>
 {{ footer }}

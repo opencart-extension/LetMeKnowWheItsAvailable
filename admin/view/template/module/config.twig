@@ -346,37 +346,37 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="alert alert-info">
-                                        <p><b>Variables</b></p>
+                                        <p><b>{{ text_variables }}</b></p>
 
                                         <table class="table w-50">
                                             <tbody>
                                                 <tr>
                                                     <td>{{ '{{ customer_name }}' }}</td>
-                                                    <td>Nome do usuário</td>
+                                                    <td>{{ text_customer_name }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ '{{ customer_email }}' }}</td>
-                                                    <td>E-mail do usuário</td>
+                                                    <td>{{ text_customer_email }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ '{{ product_name }}' }}</td>
-                                                    <td>Nome do Produto</td>
+                                                    <td>{{ text_product_name }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ '{{ product_price }}' }}</td>
-                                                    <td>Preço do Produto</td>
+                                                    <td>{{ text_product_price }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ '{{ product_image }}' }}</td>
-                                                    <td>Imagem do Produto</td>
+                                                    <td>{{ text_product_image }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ '{{ product_description }}' }}</td>
-                                                    <td>Descrição do Produto</td>
+                                                    <td>{{ text_product_description }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ '{{ product_link }}' }}</td>
-                                                    <td>Link do Produto</td>
+                                                    <td>{{ text_product_link }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -392,7 +392,7 @@
                                 </div>
 
                                 <div class="col">
-                                    <span class="col-sm-2 col-form-label">Preview</span>
+                                    <span class="col-sm-2 col-form-label">{{ text_preview }}</span>
                                     <div id="template-preview"></div>
                                 </div>
                             </div>

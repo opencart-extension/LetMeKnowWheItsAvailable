@@ -15,6 +15,15 @@ $_['text_redis_info'] = 'Entre em contato com <a href="https://valdeir.dev/" tar
 $_['text_button_title'] = 'Texto do botão';
 $_['text_button_colors'] = 'Cores do botão';
 $_['text_button_sizes'] = 'Tamanho do Botão';
+$_['text_variables'] = '';
+$_['text_customer_name'] = 'Nome do cliente';
+$_['text_customer_email'] = 'E-mail do usuário';
+$_['text_product_name'] = 'Nome do Produto';
+$_['text_product_price'] = 'Preço do Produto';
+$_['text_product_image'] = 'Imagem do Produto';
+$_['text_product_description'] = 'Descrição do Produto';
+$_['text_product_link'] = 'Link do Produto';
+$_['text_preview'] = 'Visualizar';
 $_['text_success'] = 'Configurações alteradas com sucesso';
 
 // Entry

@@ -5,22 +5,29 @@ class Button extends \OpenCart\System\Engine\Controller {
     const EXTENSION_PREFIX = 'module_letmeknow_';
 
     public function index(&$router, &$data, &$output) {
-        $buttonTitles = $this->config->get(self::EXTENSION_PREFIX . 'button_title');
+        $this->load->model('catalog/product');
 
-        $buttonTitle = $buttonTitles[$this->config->get('config_language_id')] ?? reset($buttonTitles);
+        $product_info = $this->model_catalog_product->getProduct($data['product_id']);
+        $min_quantity = $this->config->get(self::EXTENSION_PREFIX . 'product_quantity');
 
-        $htmlButton = sprintf(
-            '<button type="button" button-letmeknow class="btn" style="%s" data-product-id="%s">%s</button>',
-            $this->config->get(self::EXTENSION_PREFIX . 'button_css_text'),
-            $data['product_id'],
-            $buttonTitle
-        );
+        if ($product_info['quantity'] <= $min_quantity) {
+            $buttonTitles = $this->config->get(self::EXTENSION_PREFIX . 'button_title');
 
-        $output = preg_replace(
-            '/<[^>]*id=(?:\'|")button-cart(?:\'|").+<\/[^>]*>/',
-            $htmlButton,
-            $output
-        );
+            $buttonTitle = $buttonTitles[$this->config->get('config_language_id')] ?? reset($buttonTitles);
+
+            $htmlButton = sprintf(
+                '<button type="button" button-letmeknow class="btn" style="%s" data-product-id="%s">%s</button>',
+                $this->config->get(self::EXTENSION_PREFIX . 'button_css_text'),
+                $data['product_id'],
+                $buttonTitle
+            );
+
+            $output = preg_replace(
+                '/<[^>]*id=(?:\'|")button-cart(?:\'|").+<\/[^>]*>/',
+                $htmlButton,
+                $output
+            );
+        }
     }
 
     public function script() {

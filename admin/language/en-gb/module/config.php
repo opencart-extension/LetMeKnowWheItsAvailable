@@ -6,6 +6,9 @@ $_['heading_title'] = 'Avise-me quando disponível';
 // Text
 $_['text_dashboard']  = 'Dashboard';
 $_['text_extensions'] = 'Extensions';
+$_['text_edit'] = 'Editar';
+$_['text_telemetry_info'] = 'Ao escolher "sim", você estará concordando que deseja enviar informações que nos ajudarão a tornar o módulo melhor';
+$_['text_telemetry_doc'] = 'Saiba mais acessando a <a href="https://opencart-extension.github.io/let-me-know/telemetry/" target="_blank">documentação</a></span>';
 $_['text_sqs_info'] = 'Para outras formas de autenticação, entre em contato com <a href="https://valdeir.dev/" target="_blank">https://valdeir.dev/</a>';
 $_['text_ses_info'] = 'Entre em contato com <a href="https://valdeir.dev/" target="_blank">https://valdeir.dev/</a>';
 $_['text_redis_info'] = 'Entre em contato com <a href="https://valdeir.dev/" target="_blank">https://valdeir.dev/</a>';
@@ -17,6 +20,8 @@ $_['text_button_sizes'] = 'Tamanho do Botão';
 $_['entry_status'] = 'Status';
 $_['entry_product_quantity'] = 'Quantidade para exibir botão';
 $_['entry_terms'] = 'Termos';
+$_['entry_telemetry'] = 'Telemetria';
+$_['entry_newsletter'] = 'Newsletter';
 $_['entry_notification_type'] = 'Sistema de Notificação';
 $_['entry_smtp_hostname'] = 'Host';
 $_['entry_smtp_username'] = 'Usuário';

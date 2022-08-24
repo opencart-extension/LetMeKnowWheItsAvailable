@@ -99,6 +99,92 @@ class Config extends \OpenCart\System\Engine\Controller
     }
 
     /**
+     * Envia os dados para telemetria
+     */
+    public function telemetry()
+    {
+        $url = $this->request->post['telemetry_url'] ?? false;
+
+        if ($this->request->post['telemetry'] && $url) {
+            $fields_remove = array_filter(
+                $this->getFields(),
+                fn($value, $key) => $value['telemetry'] === false,
+                ARRAY_FILTER_USE_BOTH
+            );
+
+            $data = array_filter(
+                $this->request->post,
+                fn($value, $key) => !array_key_exists($key, $fields_remove),
+                ARRAY_FILTER_USE_BOTH
+            );
+
+            $fields = [
+                'version' => self::EXTENSION_VERSION,
+                'uuid' => sha1($this->request->post['email']),
+                'plataform' => 'OpenCart ' . VERSION,
+                'module' => self::EXTENSION_CODE,
+                'data' => $data
+            ];
+
+            ob_start();
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_USERAGENT, self::EXTENSION_CODE);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($fields));
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, false);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json'
+            ]);
+            curl_exec($curl);
+            curl_close($curl);
+            ob_end_clean();
+        }
+    }
+
+    /**
+     * Cadastra e-mail para receber alertas
+     * 
+     * @todo adicionar o campo newsletter
+     */
+    private function newsletter()
+    {
+        $url = $this->request->post['newsletter_url'] ?? false;
+
+        if (!$url) return;
+
+        $method = !empty($this->request->post['newsletter'])
+            ? 'POST'
+            : 'DELETE';
+
+        $fields = [
+            'email' => $this->request->post['newsletter'],
+            'plataform' => 'OpenCart ' . VERSION,
+            'module' => self::EXTENSION_CODE
+        ];
+
+        $fields['ref'] = sha1(json_encode($fields));
+
+        if ($method === 'DELETE') {
+            $url .= '/' . $fields['ref'];
+        }
+
+        ob_start();
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_USERAGENT, self::EXTENSION_CODE);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($fields));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, false);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+        curl_exec($curl);
+        curl_close($curl);
+        ob_end_clean();
+    }
+
+    /**
      * Retorna os campos permitidos
      * 
      * @return array<string, array<string, boolean>>

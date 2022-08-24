@@ -58,4 +58,27 @@ class Config extends \OpenCart\System\Engine\Controller
 
         $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/config', $data));
     }
+
+    /**
+     * Cria tabelas e eventos do módulo após instalação da extensão
+     * 
+     * @return void
+     */
+    public function install(): void
+    {
+        $this->load->model(self::EXTENSION_PATH_MODULE . '/config');
+
+        $this->{self::EXTENSION_MODEL}->createTables();
+
+        $this->load->model('setting/event');
+
+        $this->model_setting_event->addEvent([
+            'code' => self::EXTENSION_CODE,
+            'description' => 'Change Theme',
+            'trigger' => 'catalog/view/product/product/after',
+            'action' => self::EXTENSION_PATH_MODULE . '/button',
+            'status' => 1,
+            'sort_order' => 0
+        ]);
+    }
 }

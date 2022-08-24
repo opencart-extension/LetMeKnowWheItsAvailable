@@ -334,7 +334,7 @@
 
                                 {% for custom_field in custom_fields %}
                                 <div class="col-6 mb-3 form-check">
-                                    <input type="checkbox" name="modal_custom_fields[]" id="input-modal-fields-{{ custom_field.custom_field_id }}" value="{{ modal_custom_fields[custom_field.custom_field_id] }}" />
+                                    <input type="checkbox" name="modal_custom_fields[]" id="input-modal-fields-{{ custom_field.custom_field_id }}" value="{{ custom_field.custom_field_id }}" />
                                     <label for="input-modal-fields-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-control">{{ custom_field.name }}</label>
                                     <span id="error-modal-fields-{{ custom_field.custom_field_id }}" class="invalid-feedback"></span>
                                 </div>

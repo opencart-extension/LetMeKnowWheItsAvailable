@@ -89,11 +89,11 @@ class Config extends \OpenCart\System\Engine\Controller
             }
 
             if ($value['required']) {
-                if (empty($this->request->post[$field])) {
+                if ($this->request->post[$field] === '') {
                     $json['error'][$field] = $this->language->get('error_required_field');
                 } else if (is_array($this->request->post[$field])) {
                     foreach ($this->request->post[$field] as $language_id => $text) {
-                        if (empty($text)) {
+                        if ($text === '') {
                             $json['error'][$field . '-' . $language_id] = $this->language->get('error_required_field');
                         }
                     }
@@ -105,20 +105,17 @@ class Config extends \OpenCart\System\Engine\Controller
             $json['error']['warning'] = $this->language->get('error_info');
         }
 
-        if (!$this->user->hasPermission('modify', self::EXTENSION_PATH_MODULE . '/module/config')) {
+        if (!$this->user->hasPermission('modify', self::EXTENSION_PATH_MODULE . '/config')) {
             $json['error']['warning'] = $this->language->get('error_permission');
         }
 
-        $data_keys = array_map(fn($key) => self::EXTENSION_PREFIX . $key, array_keys($this->request->post));
-        $data = array_combine($data_keys, array_values($this->request->post));
-
-        if ($json) {
+        if (!$json) {
             $this->load->model('setting/setting');
 
             $data_keys = array_map(fn($key) => self::EXTENSION_PREFIX . $key, array_keys($this->request->post));
             $data = array_combine($data_keys, array_values($this->request->post));
 
-            $this->model_setting_setting(self::EXTENSION_PREFIX, $data);
+            $this->model_setting_setting->editSetting(self::EXTENSION_PREFIX, $data);
 
             $json['success'] = $this->language->get('text_success');
         }
@@ -273,7 +270,7 @@ class Config extends \OpenCart\System\Engine\Controller
                 'telemetry' => false
             ],
             'modal_size' => [
-                'required' => true,
+                'required' => false,
                 'telemetry' => true
             ],
             'notification_type' => [
@@ -337,17 +334,21 @@ class Config extends \OpenCart\System\Engine\Controller
                 'telemetry' => true
             ],
             'button_size' => [
-                'required' => true,
+                'required' => false,
                 'telemetry' => true
             ],
             'modal_custom_fields' => [
-                'required' => true,
+                'required' => false,
                 'telemetry' => false
             ],
             'template_html' => [
                 'required' => true,
                 'telemetry' => false
             ],
+            'button_css_text' => [
+                'required' => false,
+                'telemetry' => true
+            ]
         ];
     }
 }

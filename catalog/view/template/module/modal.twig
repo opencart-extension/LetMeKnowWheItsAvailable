@@ -1,0 +1,158 @@
+<div class="modal" tabindex="-1" id="letmeknow-modal">
+  <div class="modal-dialog {{ modal_size }}">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ heading_title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="post">
+            <div class="row mb-3">
+                <label for="input-letmeknow-name" class="col-sm-2 col-form-label"><b>{{ entry_name }}</b></label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="input-letmeknow-name" name="name">
+                    <span id="error-name" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="input-letmeknow-email" class="col-sm-2 col-form-label"><b>{{ entry_email }}</b></label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="input-letmeknow-email" name="email">
+                    <span id="error-email" class="invalid-feedback"></span>
+                </div>
+            </div>
+
+            {% for custom_field in custom_fields %}
+            <div class="row mb-3 {{ custom_field.required ? 'required' : '' }}">
+                <label for="input-letmeknow-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label"><b>{{ custom_field.name }}</b></label>
+                <div class="col-sm-10">
+                    {% if custom_field.type == 'text' %}
+                    <input type="text" class="form-control" name="custom_field[{{ custom_field.custom_field_id }}]" />
+                    {% elseif custom_field.type == 'textarea' %}
+                    <textarea name="custom_field[{{ custom_field.custom_field_id }}]" class="form-control"></textarea>
+                    {% elseif custom_field.type == 'select' %}
+                    <select name="custom_field[{{ custom_field.custom_field_id }}]" class="form-select">
+                        {% for custom_field_value in custom_field.custom_field_value %}
+                        <option value="{{ custom_field_value.name }}">{{ custom_field_value.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% elseif custom_field.type == 'radio' %}
+                    {% for custom_field_value in custom_field.custom_field_value %}
+                    <input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.name }}" /> {{ custom_field_value.name }}
+                    {% endfor %}
+                    {% elseif custom_field.type == 'checkbox' %}
+                    {% for custom_field_value in custom_field.custom_field_value %}
+                    <input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][{{ custom_field_value.custom_field_value_id }}]" value="on" /> {{ custom_field_value.name }}
+                    {% endfor %}
+                    {% elseif custom_field.type == 'file' %}
+                    <input type="hidden" name="custom_field[{{ custom_field.custom_field_id }}]" id="input-letmeknow-{{ custom_field.custom_field_id }}" />
+                    <button type="button" class="btn btn-primary" data-input="input-letmeknow-{{ custom_field.custom_field_id }}" onclick="chooseFile(this)">{{ button_upload }}</button>
+                    {% elseif custom_field.type == 'date' %}
+                    <input type="date" name="custom_field[{{ custom_field.custom_field_id }}]" class="form-control" />
+                    {% elseif custom_field.type == 'time' %}
+                    <input type="time" name="custom_field[{{ custom_field.custom_field_id }}]" class="form-control" />
+                    {% elseif custom_field.type == 'datetime' %}
+                    <input type="datetime-local" name="custom_field[{{ custom_field.custom_field_id }}]" class="form-control" />
+                    {% endif %}
+                    <span id="error-{{ custom_field.custom_field_id }}" class="invalid-feedback"></span>
+                </div>
+            </div>
+            {% endfor %}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ button_cancel }}</button>
+        <button type="button" class="btn btn-primary">{{ button_submit }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="letmeknow-success">
+  <div class="modal-dialog {{ modal_size }} modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        {{ text_success }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="letmeknow-script">
+var divModal = document.querySelector('#letmeknow-modal');
+divModal.querySelector('.modal-footer .btn-primary').addEventListener('click', save);
+divModal.addEventListener('hidden.bs.modal', () => {
+  divModal.remove()
+})
+
+var divModalSuccess = new bootstrap.Modal(document.getElementById('letmeknow-success'));
+document.getElementById('letmeknow-success').addEventListener('hidden.bs.modal', (ev) => {
+  ev.target.remove()
+})
+
+var myModal = new bootstrap.Modal(divModal);
+myModal.show();
+
+function chooseFile(ev) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.style.display = 'none';
+    input.oninput = upload;
+    input.dataset.input = ev.dataset.input;
+    document.body.appendChild(input);
+    input.click();
+}
+
+async function upload(ev) {
+    ev.target.remove();
+
+    if (ev.target.files.length === 0) return;
+
+    $('.modal-footer .btn-primary').prop('disabled', true).text('{{ text_loading }}');
+
+    const [file] = ev.target.files;
+    const form = new FormData();
+    form.set('file', file, file.name)
+
+    const data = await fetch('/index.php?route=tool/upload', {
+        method: 'POST',
+        body: form
+    }).then((res) => res.json());
+
+    if (data.error) {
+        alert(data.error);
+        return
+    }
+
+    if (ev.target.dataset.input) {
+        document.querySelector(`#${ev.target.dataset.input}`).value = data.code;
+    }
+
+    $('.modal-footer .btn-primary').prop('disabled', false).text('{{ button_submit }}');
+    $(`button[data-input="${ev.target.dataset.input}"]`).replaceWith(`<span>${file.name}</span>`)
+}
+
+async function save() {
+    const form = new FormData();
+        
+    divModal.querySelectorAll('input[type="text"],input[type="hidden"],input[type="checkbox"]:checked,input[type="radio"]:checked,input[type="date"],input[type="time"],input[type="datetime-local"],textarea,select').forEach((el) => form.set(el.name, el.value))
+
+    divModal.querySelectorAll('[id^="error-"]').forEach(el => el.classList.remove('d-block'))
+
+    fetch('/index.php?route=extension/LetMeKnowWheItsAvailable/module/modal|save', { method: 'POST', body: form })
+        .then((res) => res.json())
+        .then((res) => {
+            if (res.error) {
+                for (let key in res.error) {
+                    divModal.querySelector(`#error-${key}`).textContent = res.error[key];
+                    divModal.querySelector(`#error-${key}`).classList.add('d-block')
+                }
+
+                return;
+            }
+
+            divModalSuccess.show();
+            myModal.hide();
+        })
+}
+</script>

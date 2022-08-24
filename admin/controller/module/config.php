@@ -97,4 +97,103 @@ class Config extends \OpenCart\System\Engine\Controller
 
         $this->model_setting_event->deleteEventByCode(self::EXTENSION_CODE);
     }
+
+    /**
+     * Retorna os campos permitidos
+     * 
+     * @return array<string, array<string, boolean>>
+     */
+    private function getFields(): array
+    {
+        return [
+            'status' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'product_quantity' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'terms' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'modal_size' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'notification_type' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'smtp_hostname' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'smtp_username' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'smtp_password' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'smtp_port' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'smtp_timeout' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'sqs_access_key' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'sqs_secret_key' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'sqs_region' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'sqs_queue_url' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'sqs_queue_batch' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'button_title' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'button_background_color' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'button_font_color' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'button_border_color' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'button_size' => [
+                'required' => true,
+                'telemetry' => true
+            ],
+            'modal_custom_fields' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+            'template_html' => [
+                'required' => true,
+                'telemetry' => false
+            ],
+        ];
+    }
 }

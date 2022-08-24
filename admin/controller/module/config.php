@@ -40,6 +40,18 @@ class Config extends \OpenCart\System\Engine\Controller
 
         $data['informations'] = $this->model_catalog_information->getInformations();
 
+        $this->load->model('customer/custom_field');
+
+        $data['custom_fields'] = $this->model_customer_custom_field->getCustomFields(['filter_status' => 1]);
+
+        $data['help_new_custom_field'] = sprintf(
+            $this->language->get('help_new_custom_field'),
+            $this->url->link('customer/custom_field', 'user_token=' . $this->session->data['user_token'])
+        );
+
+        $data['action'] = $this->url->link(self::EXTENSION_PATH_MODULE . '/config|save', 'user_token=' . $this->session->data['user_token']);
+        $data['back'] = $this->url->link('marketplace/extensions', 'user_token=' . $this->session->data['user_token'] . '&type=module');
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');

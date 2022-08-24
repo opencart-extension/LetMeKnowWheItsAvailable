@@ -39,6 +39,10 @@ class Config extends \OpenCart\System\Engine\Controller
             'href' => ''
         ];
 
+        foreach ($this->getFields() as $key => $value) {
+            $data[$key] = $this->config->get(self::EXTENSION_PREFIX . $key);
+        }
+
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

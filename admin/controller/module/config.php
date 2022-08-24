@@ -81,4 +81,20 @@ class Config extends \OpenCart\System\Engine\Controller
             'sort_order' => 0
         ]);
     }
+
+    /**
+     * Remove tabelas e eventos do módulo após desinstalação da extensão
+     * 
+     * @return void
+     */
+    public function uninstall(): void
+    {
+        $this->load->model(self::EXTENSION_PATH_MODULE . '/config');
+
+        $this->{self::EXTENSION_MODEL}->dropTables();
+
+        $this->load->model('setting/event');
+
+        $this->model_setting_event->deleteEventByCode(self::EXTENSION_CODE);
+    }
 }

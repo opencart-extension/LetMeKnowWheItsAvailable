@@ -32,7 +32,7 @@ $_['entry_sqs_access_key'] = 'Access Key';
 $_['entry_sqs_secret_key'] = 'Secret Key';
 $_['entry_sqs_region'] = 'Região';
 $_['entry_sqs_queue_url'] = 'Queue URL';
-$_['entry_sqs_total_emails'] = 'Total de e-mail por fila';
+$_['entry_sqs_queue_batch'] = 'Total de e-mail por fila';
 $_['entry_background_color'] = 'Cor de Fundo';
 $_['entry_font_color'] = 'Cor da Fonte';
 $_['entry_border_color'] = 'Cor da Borda';
@@ -43,5 +43,6 @@ $_['help_product_quantity'] = 'Informe a quantidade mínima que o produto dever�
 $_['help_smtp_hostname'] = 'Add \'tls://\' or \'ssl://\' prefix if security connection is required. (e.g. tls://smtp.gmail.com, ssl://smtp.gmail.com).';
 $_['help_smtp_password'] = 'For Gmail you might need to setup an application specific password here: <a href="https://security.google.com/settings/security/apppasswords" target="_blank">https://security.google.com/settings/security/apppasswords</a>.';
 $_['help_sqs_region'] = 'Access <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Region availability</a> to see the list of regions';
-$_['help_sqs_total_emails'] = 'Informe o total de e-mail que deverão ser enviados por fila';
+$_['help_sqs_queue_batch'] = 'Informe o total de e-mail que deverão ser enviados por fila';
 $_['help_button_size'] = 'Qualquer valor CSS disponível: 100px, 100% etc';
+$_['help_new_custom_field'] = 'Acesse <a href="%s">Campos Personalizados</a> para criar novos campos ou habilitar os já existentes';

@@ -63,7 +63,7 @@
                             <div class="row mb-3">
                                 <label for="input-product-quantity" class="col-sm-2 col-form-label">{{ entry_product_quantity }}</label>
                                 <div class="col-sm-10">
-                                    <input type="number" name="" id="input-product-quantity" class="form-control" />
+                                    <input type="number" name="product_quantity" id="input-product-quantity" class="form-control" />
                                     <span class="form-text">{{ help_product_quantity }}</span>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                             <div class="row mb-3">
                                 <label for="input-terms" class="col-sm-2 col-form-label">{{ entry_terms }}</label>
                                 <div class="col-sm-10">
-                                    <select name="" id="input-terms" class="form-select">
+                                    <select name="terms" id="input-terms" class="form-select">
                                         {% for information in informations %}
                                         <option value="{{ information.information_id }}">{{ information.title }}</option>
                                         {% endfor %}
@@ -102,6 +102,13 @@
                                         </select>
                                         <span>{{ text_telemetry_doc }}
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="input-newsletter" class="col-sm-2 col-form-label">{{ entry_newsletter }}</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="newsletter" id="input-newsletter" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -173,37 +180,37 @@
                                 <div class="row mb-3">
                                     <label for="input-sqs-access-key" class="col-sm-2 col-form-label">{{ entry_sqs_access_key }}</label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="input-sqs-access-key" class="form-control" />
+                                        <input type="text" id="input-sqs-access-key" name="sqs_access_key" class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="input-sqs-secret-key" class="col-sm-2 col-form-label">{{ entry_sqs_secret_key }}</label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="input-sqs-secret-key" class="form-control" />
+                                        <input type="text" id="input-sqs-secret-key" name="sqs_secret_key" class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="input-sqs-region" class="col-sm-2 col-form-label">{{ entry_sqs_region }}</label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="input-sqs-region" class="form-control" />
-                                        <span class="form-txt">{{ help_sqs_region }}</span>
+                                        <input type="text" id="input-sqs-region" name="sqs_region" class="form-control" />
+                                        <span class="form-text">{{ help_sqs_region }}</span>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="input-sqs-queue-url" class="col-sm-2 col-form-label">{{ entry_sqs_queue_url }}</label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="input-sqs-queue-url" class="form-control" />
+                                        <input type="text" id="input-sqs-queue-url" name="sqs_queue_url" class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="input-sqs-queue-url" class="col-sm-2 col-form-label">{{ entry_sqs_total_emails }}</label>
+                                    <label for="input-sqs-queue-batch" class="col-sm-2 col-form-label">{{ entry_sqs_queue_batch }}</label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="input-sqs-queue-url" class="form-control" />
-                                        <div class="form-text">{{ help_sqs_total_emails }}</div>
+                                        <input type="text" id="input-sqs-queue-batch" name="sqs_queue_batch" class="form-control" />
+                                        <div class="form-text">{{ help_sqs_queue_batch }}</div>
                                     </div>
                                 </div>
                             </fieldset>
@@ -246,21 +253,21 @@
                                         <div class="row mb-3">
                                             <label for="input-button-background-color" class="col-sm-3 col-form-label">{{ entry_background_color }}</label>
                                             <div class="col-sm-9">
-                                                <input type="color" name="" id="input-button-background-color" />
+                                                <input type="color" name="button_background_color" id="input-button-background-color" />
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
                                             <label for="input-button-font-color" class="col-sm-3 col-form-label">{{ entry_font_color }}</label>
                                             <div class="col-sm-9">
-                                                <input type="color" name="" id="input-button-font-color" />
+                                                <input type="color" name="button_font_color" id="input-button-font-color" />
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
                                             <label for="input-button-border-color" class="col-sm-3 col-form-label">{{ entry_border_color }}</label>
                                             <div class="col-sm-9">
-                                                <input type="color" name="" id="input-button-border-color" />
+                                                <input type="color" name="button_border_color" id="input-button-border-color" />
                                             </div>
                                         </div>
                                     </fieldset>

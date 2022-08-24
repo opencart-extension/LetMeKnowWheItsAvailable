@@ -46,6 +46,7 @@
                         <li class="nav-item"><a href="#tab-general" class="nav-link active" data-bs-toggle="tab">General</a></li>
                         <li class="nav-item"><a href="#tab-notification" class="nav-link" data-bs-toggle="tab">Notification</a></li>
                         <li class="nav-item"><a href="#tab-button-appearance" class="nav-link" data-bs-toggle="tab">Button Appearance</a></li>
+                        <li class="nav-item"><a href="#tab-modal-fields" class="nav-link" data-bs-toggle="tab">Modal Fields</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -289,6 +290,29 @@
                                     <input type="hidden" name="button_css_text" /> {# @todo Armazenar CSS do botão #}
                                     <button type="button" id="button-example" class="btn"></button>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-modal-fields" class="tab-pane">
+                            <div class="alert alert-info">{{ help_new_custom_field }}</div>
+
+                            <div class="row mb-3">
+                                <div class="col-6 mb-3 form-check">
+                                    <input type="checkbox" id="input-modal-field-name" checked disabled />
+                                    <label for="input-modal-field-name" class="col-sm-2 col-form-control">Name</label>
+                                </div>
+
+                                <div class="col-6 mb-3 form-check">
+                                    <input type="checkbox" id="input-modal-field-email" checked disabled />
+                                    <label for="input-modal-field-email" class="col-sm-2 col-form-control">E-mail</label>
+                                </div>
+
+                                {% for custom_field in custom_fields %}
+                                <div class="col-6 mb-3 form-check">
+                                    <input type="checkbox" name="modal_custom_fields[]" id="input-modal-fields-{{ custom_field.custom_field_id }}" />
+                                    <label for="input-modal-fields-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-control">{{ custom_field.name }}</label>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

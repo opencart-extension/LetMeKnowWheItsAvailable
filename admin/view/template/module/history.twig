@@ -1,0 +1,108 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h1>{{ heading_title }}</h1>
+            <ol class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ol>
+            <div class="float-end">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div id="filter-history" class="col-lg-3 col-md-12 order-lg-last d-none d-lg-block mb-3">
+                <div class="card">
+                    <div class="card-header"><i class="fa-solid fa-filter"></i> {{ text_filter }}</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="input-product-name" class="form-label">{{ entry_product_name }}</label>
+                            <input
+                                type="text"
+                                name="filter_product_name"
+                                placeholder="{{ entry_product_name }}"
+                                id="input-product-name"
+                                list="list-product-name"
+                                class="form-control"
+                            />
+                            <datalist id="list-product-name"></datalist>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="input-status" class="form-label">{{ entry_status }}</label>
+                            <select name="filter_status" id="input-status" class="form-select">
+                                <option value="">{{ text_none }}</option>
+                                <option value="0">{{ text_waiting }}</option>
+                                <option value="1">{{ text_notified }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-end">
+                            <button type="button" id="button-filter" class="btn btn-light"><i class="fa-solid fa-filter"></i> {{ button_filter }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-lg-9 col-md-12">
+                <div class="card">
+                    <div class="card-header"><i class="fa-solid fa-list"></i> {{ text_list }}</div>
+                    <div id="history" class="card-body">
+                        <form id="form-history" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#history">
+                            {{ list }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#history').on('click', 'thead a, .pagination a', function (e) {
+        e.preventDefault();
+
+        $('#history').load(this.href);
+    });
+
+    $('#button-filter').on('click', function () {
+        var url = '';
+
+        var filter_product_name = $('#input-product-name').val();
+
+        if (filter_product_name) {
+            url += '&filter_product_name=' + encodeURIComponent(filter_product_name);
+        }
+
+        var filter_status = $('#input-status').val();
+
+        if (filter_status !== '') {
+            url += '&filter_status=' + filter_status;
+        }
+
+        $('#history').load('index.php?route=extension/LetMeKnowWheItsAvailable/module/history|list&user_token=' + getURLVar('user_token') + url);
+    });
+
+    $('#input-product-name').autocomplete({
+        source: (request, response) => {
+            $.ajax({
+                url: 'index.php?route=catalog/product|autocomplete&user_token=' + getURLVar('user_token') + '&filter_name=' + encodeURIComponent(request),
+                dataType: 'json',
+                success: function (json) {
+                    response($.map(json, function (item) {
+                        return {
+                            label: item['name'],
+                            value: item['product_id']
+                        }
+                    }));
+                }
+            })
+        }
+    })
+</script>
+{{ footer }}

@@ -1,0 +1,55 @@
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></td>
+                <td>{{ column_customer_name }}</td>
+                <td>{{ column_customer_email }}</td>
+                <td>{{ column_product_name }}</td>
+                <td>{{ column_status }}</td>
+                <td class="text-end">{{ column_action }}</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if users %}
+            {% for value in users %}
+            <tr>
+                <td><input type="checkbox" name="selected[]" value="{{ value.id }}" class="form-check-input"/></td>
+                <td>{{ value.customer_name }}</td>
+                <td>{{ value.customer_email }}</td>
+                <td>{{ value.product_name }}</td>
+                <td>{{ value.concluded_at ? text_notified : text_waiting }}</td>
+                <td class="text-end">
+                    <div class="btn-group">
+                        <a href="{{ value.product_edit }}" class="btn btn-primary" data-bs-toggle="tooltip" title="{{ button_product_edit }}"><i class="fa-solid fa-pencil"></i></a>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" style="">
+                            <button class="btn btn-light dropdown-item">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                {{ button_notify }} {# @todo Criar função #}
+                            </button>
+                            <button class="btn btn-light dropdown-item">
+                                <i class="fa-solid fa-eye"></i>
+                                {{ button_info }} {# @todo Criar função #}
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center">{{ text_no_results }}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    </div>
+
+    <div class="row">
+    <div class="col">{{ pagination }}</div>
+    <div class="col text-end">{{ results }}</div>
+</div>

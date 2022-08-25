@@ -213,8 +213,6 @@ class Config extends \OpenCart\System\Engine\Controller
 
     /**
      * Cadastra e-mail para receber alertas
-     * 
-     * @todo adicionar o campo newsletter
      */
     private function newsletter()
     {

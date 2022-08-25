@@ -43,13 +43,21 @@ class History extends \OpenCart\System\Engine\Controller
         $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/history', $data));
     }
 
-    public function list()
+    /**
+     * Exibe lista de registros dos usuários
+     */
+    public function list(): void
     {
         $this->load->language(self::EXTENSION_PATH_MODULE . '/history');
 
         $this->response->setOutput($this->getList());
     }
 
+    /**
+     * ´Retorna lista de registros dos usuários
+     * 
+     * @return string
+     */
     public function getList(): string
     {
         $data = [];

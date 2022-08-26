@@ -3,6 +3,21 @@ namespace OpenCart\Admin\Model\Extension\LetMeKnowWheItsAvailable\Module;
 
 class History extends \OpenCart\System\Engine\Model
 {
+    public function getUser(string $id): array
+    {
+        $sql = "
+            SELECT l.*, pd.name as product_name
+            FROM `" . DB_PREFIX . "let_me_know` l
+            LEFT JOIN `" . DB_PREFIX . "product_description` pd
+                ON (pd.product_id = l.product_id AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "')
+                WHERE `id` = '" . $this->db->escape($id) . " '
+        ";
+
+        $query = $this->db->query($sql);
+
+        return $query->row;
+    }
+
     public function getUsers(array $filter): array
     {
         $sql = "

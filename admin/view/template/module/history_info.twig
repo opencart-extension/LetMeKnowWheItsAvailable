@@ -1,0 +1,8 @@
+<table class="table">
+    {% for field in fields %}
+    <tr>
+        <td>{{ field.key }}</td>
+        <td>{{ field.value }}</td>
+    </tr>
+    {% endfor %}
+</table>

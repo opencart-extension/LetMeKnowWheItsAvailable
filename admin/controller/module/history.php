@@ -108,4 +108,40 @@ class History extends \OpenCart\System\Engine\Controller
 
         return $this->load->view(self::EXTENSION_PATH_MODULE . '/history_list', $data);
     }
+
+    public function info(): void
+    {
+        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+        $data = [];
+
+        if ($id) {
+            $this->load->model('customer/custom_field');
+
+            $this->load->model(self::EXTENSION_PATH_MODULE . '/history');
+
+            $user = $this->{self::EXTENSION_MODEL_HISTORY}->getUser($id);
+
+            if ($user) {
+                $custom_fields = json_decode($user['custom_fields'], true);
+
+                foreach ($custom_fields as $custom_field_id => $value) {
+                    $custom_field_info = $this->model_customer_custom_field->getCustomField($custom_field_id);
+
+                    if ($custom_field_info['type'] === 'checkbox') {
+                        $value = implode(', ', $value);
+                    } elseif ($custom_field_info['type'] == 'file' && $value) {
+                        $value = '<a href="' . $this->url->link('tool/upload|download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $value) . '">' . $value . '</a>';
+                    }
+
+                    $data['fields'][] = [
+                        'key' => $custom_field_info['name'],
+                        'value' => $value
+                    ];
+                }
+            }
+        }
+
+        $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/history_info', $data));
+    }
 }

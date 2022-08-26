@@ -63,6 +63,19 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-info">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ button_close }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     $('#history').on('click', 'thead a, .pagination a', function (e) {
         e.preventDefault();
@@ -104,5 +117,15 @@
             })
         }
     })
+
+    function viewInfo(id) {
+        let divModalInfo = document.getElementById('modal-info');
+        $(divModalInfo).find('.modal-body').load('index.php?route=extension/LetMeKnowWheItsAvailable/module/history|info&user_token=' + getURLVar('user_token') + '&id=' + id)
+
+        let modalInfo = new bootstrap.Modal(divModalInfo);
+        modalInfo.show();
+
+        modalInfo = divModalInfo = null;
+    }
 </script>
 {{ footer }}

@@ -54,7 +54,7 @@ class Modal extends \OpenCart\System\Engine\Controller
         $json = [];
 
         if (mb_strlen($this->request->post['name']) === 0) {
-            $json['error']['name'] = $this->model_account_custom_field->get('error_required');
+            $json['error']['name'] = $this->language->get('error_required');
         }
 
         if (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {

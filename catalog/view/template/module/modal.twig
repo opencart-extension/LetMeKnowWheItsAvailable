@@ -42,7 +42,7 @@
                     {% endfor %}
                     {% elseif custom_field.type == 'checkbox' %}
                     {% for custom_field_value in custom_field.custom_field_value %}
-                    <input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][{{ custom_field_value.custom_field_value_id }}]" value="on" /> {{ custom_field_value.name }}
+                    <input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][{{ custom_field_value.custom_field_value_id }}]" value="{{ custom_field_value.name }}" /> {{ custom_field_value.name }}
                     {% endfor %}
                     {% elseif custom_field.type == 'file' %}
                     <input type="hidden" name="custom_field[{{ custom_field.custom_field_id }}]" id="input-letmeknow-{{ custom_field.custom_field_id }}" />

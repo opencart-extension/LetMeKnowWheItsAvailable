@@ -58,7 +58,7 @@ class History extends \OpenCart\System\Engine\Controller
      * 
      * @return string
      */
-    public function getList(): string
+    private function getList(): string
     {
         $data = [];
 

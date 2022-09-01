@@ -6,8 +6,8 @@ class History extends \OpenCart\System\Engine\Controller
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
     const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
-    const EXTENSION_MODEL = 'model_extension_' . self::EXTENSION_CODE . '_module';
     const EXTENSION_MODEL_HISTORY = 'model_extension_' . self::EXTENSION_CODE . '_module_history';
+    const EXTENSION_MODEL_NOTIFIER = 'model_extension_' . self::EXTENSION_CODE . '_module_notifier';
 
     /**
      * Exibe a lista de inscrições
@@ -54,7 +54,7 @@ class History extends \OpenCart\System\Engine\Controller
     }
 
     /**
-     * ´Retorna lista de registros dos usuários
+     * Retorna lista de registros dos usuários
      * 
      * @return string
      */
@@ -109,6 +109,11 @@ class History extends \OpenCart\System\Engine\Controller
         return $this->load->view(self::EXTENSION_PATH_MODULE . '/history_list', $data);
     }
 
+    /**
+     * Exibe uma tabela com os dados dos campos personalizados
+     * 
+     * @return void
+     */
     public function info(): void
     {
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -143,5 +148,24 @@ class History extends \OpenCart\System\Engine\Controller
         }
 
         $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/history_info', $data));
+    }
+
+    public function notify(): void
+    {
+        define('LETMEKNOW_LOG', DIR_EXTENSION . self::EXTENSION_CODE . '/system/storage/logs');
+
+        $productId = filter_input(INPUT_POST, 'product_id', FILTER_SANITIZE_NUMBER_INT);
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+        $this->load->model(self::EXTENSION_PATH_MODULE . '/notifier');
+
+        $emails = $this->{self::EXTENSION_MODEL_NOTIFIER}->getEmails($productId, $email);
+
+        $mail = new \ValdeirPsr\Letmeknow\Notifier\Smtp($this->config);
+        $sender = new \ValdeirPsr\Letmeknow\Sender($mail);
+        $sender->setRegisters($emails);
+        $confirmed = $sender->send($emails);
+
+        $this->{self::EXTENSION_MODEL_NOTIFIER}->confirm($productId, $confirmed);
     }
 }

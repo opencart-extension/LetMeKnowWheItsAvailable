@@ -1,0 +1,19 @@
+{
+    "name": "valdeirpsr/letmeknow",
+    "type": "library",
+    "require": {
+        "monolog/monolog": "^3.2"
+    },
+    "license": "GPLv2",
+    "autoload": {
+        "psr-4": {
+            "ValdeirPsr\\Letmeknow\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Valdeir S."
+        }
+    ],
+    "minimum-stability": "stable"
+}

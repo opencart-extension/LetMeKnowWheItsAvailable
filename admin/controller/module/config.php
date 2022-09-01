@@ -7,7 +7,7 @@ class Config extends \OpenCart\System\Engine\Controller
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
     const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
-    const EXTENSION_MODEL = 'model_extension_' . self::EXTENSION_CODE . '_module';
+    const EXTENSION_MODEL = 'model_extension_' . self::EXTENSION_CODE . '_module_config';
 
     /**
      * Exibe o formulário de configuração para o usuário

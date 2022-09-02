@@ -4,8 +4,6 @@ namespace OpenCart\Admin\Model\Extension\LetMeKnowWheItsAvailable\Module;
 use Opencart\System\Library\Mail;
 use Opencart\System\Library\Template;
 
-require DIR_EXTENSION . 'LetMeKnowWheItsAvailable/vendor/vendor/autoload.php';
-
 class Notifier extends \OpenCart\System\Engine\Model
 {
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';

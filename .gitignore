@@ -1,5 +1,3 @@
 system/storage/logs
-system/storage/vendor/composer
-system/storage/vendor/monolog
-system/storage/vendor/psr
-system/storage/vendor/autoload.php
+vendor/*
+!vendor/valdeirpsr

@@ -152,8 +152,15 @@ class History extends \OpenCart\System\Engine\Controller
         $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/history_info', $data));
     }
 
+    /**
+     * Notifica usuário
+     */
     public function notify(): void
     {
+        if (!class_exists('\\ValdeirPsr\\Letmeknow\\Sender')) {
+            require_once DIR_EXTENSION . self::EXTENSION_CODE . '/vendor/autoload.php';
+        }
+
         define('LETMEKNOW_LOG', DIR_EXTENSION . self::EXTENSION_CODE . '/system/storage/logs');
 
         $productId = filter_input(INPUT_POST, 'product_id', FILTER_SANITIZE_NUMBER_INT);

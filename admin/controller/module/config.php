@@ -7,6 +7,7 @@ class Config extends \OpenCart\System\Engine\Controller
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
     const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
+    const EXTENSION_PATH_EVENTS = 'extension/' . self::EXTENSION_CODE . '/events';
     const EXTENSION_MODEL = 'model_extension_' . self::EXTENSION_CODE . '_module_config';
 
     /**
@@ -145,7 +146,16 @@ class Config extends \OpenCart\System\Engine\Controller
             'code' => self::EXTENSION_CODE,
             'description' => 'Change Theme',
             'trigger' => 'catalog/view/product/product/after',
-            'action' => self::EXTENSION_PATH_MODULE . '/button',
+            'action' => self::EXTENSION_PATH_EVENTS . '/button',
+            'status' => 1,
+            'sort_order' => 0
+        ]);
+
+        $this->model_setting_event->addEvent([
+            'code' => self::EXTENSION_CODE,
+            'description' => 'Dispatch Notify',
+            'trigger' => 'admin/model/catalog/product/editProduct/after',
+            'action' => self::EXTENSION_PATH_MODULE . '/dispatch_notify',
             'status' => 1,
             'sort_order' => 0
         ]);

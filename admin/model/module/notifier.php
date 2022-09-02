@@ -16,7 +16,7 @@ class Notifier extends \OpenCart\System\Engine\Model
      * 
      * @return array
      */
-    public function getEmails(int $productId, string $email = ''): array
+    public function getEmails(int $productId, ?string $email = ''): array
     {
         $sql = "
             SELECT

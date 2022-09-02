@@ -4,8 +4,8 @@ namespace OpenCart\Admin\Controller\Extension\LetMeKnowWheItsAvailable\History;
 class Notify extends \OpenCart\System\Engine\Controller
 {
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
-    const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
-    const EXTENSION_MODEL_NOTIFIER = 'model_extension_' . self::EXTENSION_CODE . '_module_notifier';
+    const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/history';
+    const EXTENSION_MODEL_NOTIFIER = 'model_extension_' . self::EXTENSION_CODE . '_history_notifier';
 
     /**
      * Notifica usuário

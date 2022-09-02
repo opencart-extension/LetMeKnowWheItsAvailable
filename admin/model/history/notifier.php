@@ -1,5 +1,5 @@
 <?php
-namespace OpenCart\Admin\Model\Extension\LetMeKnowWheItsAvailable\Module;
+namespace OpenCart\Admin\Model\Extension\LetMeKnowWheItsAvailable\History;
 
 use Opencart\System\Library\Mail;
 use Opencart\System\Library\Template;

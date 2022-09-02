@@ -5,7 +5,7 @@ class Info extends \OpenCart\System\Engine\Controller
 {
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
     const EXTENSION_PATH_HISTORY = 'extension/' . self::EXTENSION_CODE . '/history';
-    const EXTENSION_MODEL_HISTORY = 'model_extension_' . self::EXTENSION_CODE . '_module_history';
+    const EXTENSION_MODEL_HISTORY = 'model_extension_' . self::EXTENSION_CODE . '_history_history';
 
     /**
      * Exibe uma tabela com os dados dos campos personalizados

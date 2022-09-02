@@ -1,5 +1,5 @@
 <?php
-namespace OpenCart\Admin\Model\Extension\LetMeKnowWheItsAvailable\Module;
+namespace OpenCart\Admin\Model\Extension\LetMeKnowWheItsAvailable\History;
 
 class History extends \OpenCart\System\Engine\Model
 {

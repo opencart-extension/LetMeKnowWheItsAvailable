@@ -5,9 +5,8 @@ class Table extends \OpenCart\System\Engine\Controller
 {
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
-    const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
     const EXTENSION_PATH_HISTORY = 'extension/' . self::EXTENSION_CODE . '/history';
-    const EXTENSION_MODEL_HISTORY = 'model_extension_' . self::EXTENSION_CODE . '_module_history';
+    const EXTENSION_MODEL_HISTORY = 'model_extension_' . self::EXTENSION_CODE . '_history_history';
     const EXTENSION_MODEL_NOTIFIER = 'model_extension_' . self::EXTENSION_CODE . '_module_notifier';
 
     /**
@@ -77,7 +76,7 @@ class Table extends \OpenCart\System\Engine\Controller
             'limit' => $this->config->get('config_pagination_admin')
         ];
 
-        $this->load->model(self::EXTENSION_PATH_MODULE . '/history');
+        $this->load->model(self::EXTENSION_PATH_HISTORY . '/history');
 
         $data['users'] = $this->{self::EXTENSION_MODEL_HISTORY}->getUsers($filter_data);
 

@@ -159,6 +159,15 @@ class Config extends \OpenCart\System\Engine\Controller
             'status' => 1,
             'sort_order' => 0
         ]);
+
+        $this->model_setting_event->addEvent([
+            'code' => self::EXTENSION_CODE,
+            'description' => 'Add Menu',
+            'trigger' => 'admin/view/common/column_left/before',
+            'action' => self::EXTENSION_PATH_MODULE . '/menu',
+            'status' => 1,
+            'sort_order' => 0
+        ]);
     }
 
     /**

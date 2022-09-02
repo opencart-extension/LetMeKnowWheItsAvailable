@@ -20,3 +20,5 @@ $_['column_action'] = 'Ação';
 $_['button_notify'] = 'Notificar';
 $_['button_product_edit'] = 'Editar Produto';
 $_['button_info'] = 'Detalhes';
+
+$_['error_engine_default_null'] = 'Configurações não definidas nas configurações do OpenCart';

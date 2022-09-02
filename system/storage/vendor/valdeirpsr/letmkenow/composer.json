@@ -15,5 +15,8 @@
             "name": "Valdeir S."
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "config": {
+        "vendor-dir": "/var/www/html/extension/LetMeKnowWheItsAvailable/vendor"
+    }
 }

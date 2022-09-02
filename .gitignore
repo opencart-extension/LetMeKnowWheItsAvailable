@@ -1,2 +1,5 @@
 system/storage/logs
-vendor/vendor
+system/storage/vendor/composer
+system/storage/vendor/monolog
+system/storage/vendor/psr
+system/storage/vendor/autoload.php

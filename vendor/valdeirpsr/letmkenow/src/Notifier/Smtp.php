@@ -14,10 +14,10 @@ class Smtp extends Mail
     public function __construct(protected Config $config)
     {
         $this->mail = new OcMail('smtp');
-        $this->mail->smtp_hostname = 'smtp';
-        $this->mail->smtp_username = '';
-        $this->mail->smtp_password = html_entity_decode('', ENT_QUOTES, 'UTF-8');
-        $this->mail->smtp_port = 1025;
-        $this->mail->smtp_timeout = 5;
+        $this->mail->smtp_hostname = $config->get('config_mail_smtp_hostname');
+        $this->mail->smtp_username = $config->get('config_mail_smtp_username');
+        $this->mail->smtp_password = html_entity_decode($config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+        $this->mail->smtp_port = $config->get('config_mail_smtp_port');
+        $this->mail->smtp_timeout = $config->get('config_mail_smtp_timeout');
     }
 }

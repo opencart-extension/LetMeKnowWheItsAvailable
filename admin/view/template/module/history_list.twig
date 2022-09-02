@@ -27,10 +27,12 @@
                             <i class="fa-solid fa-caret-down"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end" style="">
-                            <button type="button" class="btn btn-light dropdown-item">
+                            {% if value.concluded_at is null %}
+                            <button type="button" class="btn btn-light dropdown-item" onclick="notify('{{ value.product_id }}', '{{ value.customer_email }}')">
                                 <i class="fa-solid fa-paper-plane"></i>
                                 {{ button_notify }} {# @todo Criar função #}
                             </button>
+                            {% endif %}
                             <button type="button" class="btn btn-light dropdown-item" onclick="viewInfo('{{ value.id }}')">
                                 <i class="fa-solid fa-eye"></i>
                                 {{ button_info }} {# @todo Criar função #}
@@ -53,3 +55,24 @@
     <div class="col">{{ pagination }}</div>
     <div class="col text-end">{{ results }}</div>
 </div>
+
+<script>
+function notify(productId, email) {
+    const form = new FormData();
+    form.set('product_id', productId)
+    form.set('email', email)
+
+    fetch(
+        '{{ notify }}'.replaceAll('&amp;', '&'),
+        {
+            method: 'POST',
+            body: form
+        }
+    )
+    .then(() => $('#button-filter').click())
+    .catch(e => {
+        console.log(e)
+        alert('Error. Press F12')
+    })
+}
+</script>

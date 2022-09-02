@@ -106,6 +106,8 @@ class History extends \OpenCart\System\Engine\Controller
 
         $data['results'] = sprintf($this->language->get('text_pagination'), ($users_total) ? (($page - 1) * $this->config->get('config_pagination_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination_admin')) > ($users_total - $this->config->get('config_pagination_admin'))) ? $users_total : ((($page - 1) * $this->config->get('config_pagination_admin')) + $this->config->get('config_pagination_admin')), $users_total, ceil($users_total / $this->config->get('config_pagination_admin')));
 
+        $data['notify'] = $this->url->link(self::EXTENSION_PATH_MODULE . '/history|notify', 'user_token=' . $this->session->data['user_token']);
+
         return $this->load->view(self::EXTENSION_PATH_MODULE . '/history_list', $data);
     }
 

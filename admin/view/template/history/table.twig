@@ -140,10 +140,11 @@
                 body: form
             }
         )
+        .then((res) => res.json())
         .then(() => $('#button-filter').click())
         .catch(e => {
             console.log(e)
-            alert('Error. Press F12')
+            alert('Error. See logs')
         })
     }
 </script>

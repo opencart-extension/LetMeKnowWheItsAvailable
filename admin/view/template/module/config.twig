@@ -448,5 +448,7 @@
     document.querySelectorAll('#tab-button-appearance input').forEach((el) =>
         el.dispatchEvent(new Event('input'))
     )
+
+    document.querySelector('#input-template-html').dispatchEvent(new Event('input'));
 </script>
 {{ footer }}

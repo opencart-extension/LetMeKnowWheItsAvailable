@@ -1,11 +1,12 @@
 <?php
-namespace OpenCart\Admin\Controller\Extension\LetMeKnowWheItsAvailable\Module;
+namespace OpenCart\Admin\Controller\Extension\LetMeKnowWheItsAvailable\History;
 
-class History extends \OpenCart\System\Engine\Controller
+class Table extends \OpenCart\System\Engine\Controller
 {
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
     const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
+    const EXTENSION_PATH_HISTORY = 'extension/' . self::EXTENSION_CODE . '/history';
     const EXTENSION_MODEL_HISTORY = 'model_extension_' . self::EXTENSION_CODE . '_module_history';
     const EXTENSION_MODEL_NOTIFIER = 'model_extension_' . self::EXTENSION_CODE . '_module_notifier';
 
@@ -18,7 +19,7 @@ class History extends \OpenCart\System\Engine\Controller
     {
         $data = [];
 
-        $this->load->language(self::EXTENSION_PATH_MODULE . '/history');
+        $this->load->language(self::EXTENSION_PATH_HISTORY . '/history');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -36,11 +37,13 @@ class History extends \OpenCart\System\Engine\Controller
 
         $data['list'] = $this->getList();
 
+        $data['notify'] = $this->url->link(self::EXTENSION_PATH_HISTORY . '/notify', 'user_token=' . $this->session->data['user_token']);
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/history', $data));
+        $this->response->setOutput($this->load->view(self::EXTENSION_PATH_HISTORY . '/table', $data));
     }
 
     /**
@@ -48,7 +51,7 @@ class History extends \OpenCart\System\Engine\Controller
      */
     public function list(): void
     {
-        $this->load->language(self::EXTENSION_PATH_MODULE . '/history');
+        $this->load->language(self::EXTENSION_PATH_HISTORY . '/history');
 
         $this->response->setOutput($this->getList());
     }
@@ -101,80 +104,11 @@ class History extends \OpenCart\System\Engine\Controller
             'total' => $users_total,
             'page'  => $page,
             'limit' => $this->config->get('config_pagination_admin'),
-            'url'   => $this->url->link(self::EXTENSION_PATH_MODULE . '/history|list', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}')
+            'url'   => $this->url->link(self::EXTENSION_PATH_HISTORY . '/table|list', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}')
         ]);
 
         $data['results'] = sprintf($this->language->get('text_pagination'), ($users_total) ? (($page - 1) * $this->config->get('config_pagination_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination_admin')) > ($users_total - $this->config->get('config_pagination_admin'))) ? $users_total : ((($page - 1) * $this->config->get('config_pagination_admin')) + $this->config->get('config_pagination_admin')), $users_total, ceil($users_total / $this->config->get('config_pagination_admin')));
 
-        $data['notify'] = $this->url->link(self::EXTENSION_PATH_MODULE . '/history|notify', 'user_token=' . $this->session->data['user_token']);
-
-        return $this->load->view(self::EXTENSION_PATH_MODULE . '/history_list', $data);
-    }
-
-    /**
-     * Exibe uma tabela com os dados dos campos personalizados
-     * 
-     * @return void
-     */
-    public function info(): void
-    {
-        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-        $data = [];
-
-        if ($id) {
-            $this->load->model('customer/custom_field');
-
-            $this->load->model(self::EXTENSION_PATH_MODULE . '/history');
-
-            $user = $this->{self::EXTENSION_MODEL_HISTORY}->getUser($id);
-
-            if ($user) {
-                $custom_fields = json_decode($user['custom_fields'], true);
-
-                foreach ($custom_fields as $custom_field_id => $value) {
-                    $custom_field_info = $this->model_customer_custom_field->getCustomField($custom_field_id);
-
-                    if ($custom_field_info['type'] === 'checkbox') {
-                        $value = implode(', ', $value);
-                    } elseif ($custom_field_info['type'] == 'file' && $value) {
-                        $value = '<a href="' . $this->url->link('tool/upload|download', 'user_token=' . $this->session->data['user_token'] . '&code=' . $value) . '">' . $value . '</a>';
-                    }
-
-                    $data['fields'][] = [
-                        'key' => $custom_field_info['name'],
-                        'value' => $value
-                    ];
-                }
-            }
-        }
-
-        $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/history_info', $data));
-    }
-
-    /**
-     * Notifica usuário
-     */
-    public function notify(): void
-    {
-        if (!class_exists('\\ValdeirPsr\\Letmeknow\\Sender')) {
-            require_once DIR_EXTENSION . self::EXTENSION_CODE . '/vendor/autoload.php';
-        }
-
-        define('LETMEKNOW_LOG', DIR_EXTENSION . self::EXTENSION_CODE . '/system/storage/logs');
-
-        $productId = filter_input(INPUT_POST, 'product_id', FILTER_SANITIZE_NUMBER_INT);
-        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-
-        $this->load->model(self::EXTENSION_PATH_MODULE . '/notifier');
-
-        $emails = $this->{self::EXTENSION_MODEL_NOTIFIER}->getEmails($productId, $email);
-
-        $mail = new \ValdeirPsr\Letmeknow\Notifier\Smtp($this->config);
-        $sender = new \ValdeirPsr\Letmeknow\Sender($mail);
-        $sender->setRegisters($emails);
-        $confirmed = $sender->send($emails);
-
-        $this->{self::EXTENSION_MODEL_NOTIFIER}->confirm($productId, $confirmed);
+        return $this->load->view(self::EXTENSION_PATH_HISTORY . '/table_list', $data);
     }
 }

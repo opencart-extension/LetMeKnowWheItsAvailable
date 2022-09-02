@@ -98,7 +98,7 @@
             url += '&filter_status=' + filter_status;
         }
 
-        $('#history').load('index.php?route=extension/LetMeKnowWheItsAvailable/module/history|list&user_token=' + getURLVar('user_token') + url);
+        $('#history').load('index.php?route=extension/LetMeKnowWheItsAvailable/history/table|list&user_token=' + getURLVar('user_token') + url);
     });
 
     $('#input-product-name').autocomplete({
@@ -120,12 +120,31 @@
 
     function viewInfo(id) {
         let divModalInfo = document.getElementById('modal-info');
-        $(divModalInfo).find('.modal-body').load('index.php?route=extension/LetMeKnowWheItsAvailable/module/history|info&user_token=' + getURLVar('user_token') + '&id=' + id)
+        $(divModalInfo).find('.modal-body').load('index.php?route=extension/LetMeKnowWheItsAvailable/history/info&user_token=' + getURLVar('user_token') + '&id=' + id)
 
         let modalInfo = new bootstrap.Modal(divModalInfo);
         modalInfo.show();
 
         modalInfo = divModalInfo = null;
+    }
+
+    function notify(productId, email) {
+        const form = new FormData();
+        form.set('product_id', productId)
+        form.set('email', email)
+
+        fetch(
+            '{{ notify }}'.replaceAll('&amp;', '&'),
+            {
+                method: 'POST',
+                body: form
+            }
+        )
+        .then(() => $('#button-filter').click())
+        .catch(e => {
+            console.log(e)
+            alert('Error. Press F12')
+        })
     }
 </script>
 {{ footer }}

@@ -5,7 +5,7 @@ class DispatchNotify extends \OpenCart\System\Engine\Controller
 {
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
-    const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
+    const EXTENSION_PATH_HISTORY = 'extension/' . self::EXTENSION_CODE . '/history';
 
     public function index($router, $args)
     {
@@ -18,6 +18,6 @@ class DispatchNotify extends \OpenCart\System\Engine\Controller
         $this->request->post['product_id'] = $productId;
         $this->request->post['email'] = '';
 
-        $this->load->controller(self::EXTENSION_PATH_MODULE . '/history|notify');
+        $this->load->controller(self::EXTENSION_PATH_HISTORY . '/notify');
     }
 }

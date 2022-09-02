@@ -55,24 +55,3 @@
     <div class="col">{{ pagination }}</div>
     <div class="col text-end">{{ results }}</div>
 </div>
-
-<script>
-function notify(productId, email) {
-    const form = new FormData();
-    form.set('product_id', productId)
-    form.set('email', email)
-
-    fetch(
-        '{{ notify }}'.replaceAll('&amp;', '&'),
-        {
-            method: 'POST',
-            body: form
-        }
-    )
-    .then(() => $('#button-filter').click())
-    .catch(e => {
-        console.log(e)
-        alert('Error. Press F12')
-    })
-}
-</script>

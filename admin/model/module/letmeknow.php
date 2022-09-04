@@ -1,7 +1,7 @@
 <?php
 namespace OpenCart\Admin\Model\Extension\LetMeKnowWheItsAvailable\Module;
 
-class Config extends \OpenCart\System\Engine\Model
+class Letmeknow extends \OpenCart\System\Engine\Model
 {
     public function createTables(): void
     {

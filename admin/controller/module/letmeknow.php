@@ -1,14 +1,14 @@
 <?php
 namespace OpenCart\Admin\Controller\Extension\LetMeKnowWheItsAvailable\Module;
 
-class Config extends \OpenCart\System\Engine\Controller
+class Letmeknow extends \OpenCart\System\Engine\Controller
 {
     const EXTENSION_VERSION = '1.0.0';
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
-    const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
+    const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module/letmeknow';
     const EXTENSION_PATH_EVENTS = 'extension/' . self::EXTENSION_CODE . '/events';
-    const EXTENSION_MODEL = 'model_extension_' . self::EXTENSION_CODE . '_module_config';
+    const EXTENSION_MODEL = 'model_extension_' . self::EXTENSION_CODE . '_module_letmeknow';
 
     /**
      * Exibe o formulário de configuração para o usuário
@@ -19,7 +19,7 @@ class Config extends \OpenCart\System\Engine\Controller
     {
         $data = [];
 
-        $this->load->language(self::EXTENSION_PATH_MODULE . '/config');
+        $this->load->language(self::EXTENSION_PATH_MODULE);
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -61,14 +61,14 @@ class Config extends \OpenCart\System\Engine\Controller
             $this->url->link('customer/custom_field', 'user_token=' . $this->session->data['user_token'])
         );
 
-        $data['action'] = $this->url->link(self::EXTENSION_PATH_MODULE . '/config|save', 'user_token=' . $this->session->data['user_token']);
+        $data['action'] = $this->url->link(self::EXTENSION_PATH_MODULE . '|save', 'user_token=' . $this->session->data['user_token']);
         $data['back'] = $this->url->link('marketplace/extensions', 'user_token=' . $this->session->data['user_token'] . '&type=module');
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/config', $data));
+        $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE, $data));
     }
 
     /**
@@ -78,7 +78,7 @@ class Config extends \OpenCart\System\Engine\Controller
      */
     public function save(): void
     {
-        $this->load->language(self::EXTENSION_PATH_MODULE . '/config');
+        $this->load->language(self::EXTENSION_PATH_MODULE);
 
         $json = [];
 
@@ -110,7 +110,7 @@ class Config extends \OpenCart\System\Engine\Controller
             $json['error']['warning'] = $this->language->get('error_info');
         }
 
-        if (!$this->user->hasPermission('modify', self::EXTENSION_PATH_MODULE . '/config')) {
+        if (!$this->user->hasPermission('modify', self::EXTENSION_PATH_MODULE)) {
             $json['error']['warning'] = $this->language->get('error_permission');
         }
 
@@ -136,7 +136,7 @@ class Config extends \OpenCart\System\Engine\Controller
      */
     public function install(): void
     {
-        $this->load->model(self::EXTENSION_PATH_MODULE . '/config');
+        $this->load->model(self::EXTENSION_PATH_MODULE);
 
         $this->{self::EXTENSION_MODEL}->createTables();
 
@@ -177,7 +177,7 @@ class Config extends \OpenCart\System\Engine\Controller
      */
     public function uninstall(): void
     {
-        $this->load->model(self::EXTENSION_PATH_MODULE . '/config');
+        $this->load->model(self::EXTENSION_PATH_MODULE);
 
         $this->{self::EXTENSION_MODEL}->dropTables();
 

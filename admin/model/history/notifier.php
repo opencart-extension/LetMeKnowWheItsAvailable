@@ -27,10 +27,12 @@ class Notifier extends \OpenCart\System\Engine\Model
                 pd.name AS product_name,
                 p.price AS product_price,
                 p.image AS product_image,
-                pd.description AS product_description
+                pd.description AS product_description,
+                seo.keyword AS product_slug
             FROM `" . DB_PREFIX . "let_me_know` l
             LEFT JOIN `" . DB_PREFIX . "product` p ON (p.product_id = l.product_id)
             LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.product_id = l.product_id AND pd.language_id = l.language_id)
+            LEFT JOIN `" . DB_PREFIX . "seo_url` seo ON (seo.value = l.product_id AND seo.key = 'product_id' AND seo.language_id = l.language_id)
             WHERE l.`product_id` = '" . $productId . "' and l.`concluded_at` IS NULL
         ";
 
@@ -46,7 +48,12 @@ class Notifier extends \OpenCart\System\Engine\Model
             $row['product_price'] = $this->currency->format($row['product_price'], $row['currency_code'] ?? $this->config->get('config_currency'));
             $row['product_image'] = HTTP_CATALOG . 'image/' . $row['product_image'];
             $row['product_description'] = html_entity_decode($row['product_description'], ENT_HTML5, 'UTF-8');
-            $row['product_link'] = HTTP_CATALOG . 'index.php?route=product/product&product_id=' . $row['product_id'];
+
+            if ($row['product_slug'] && $this->config->get('config_seo_url')) {
+                $row['product_link'] = HTTP_CATALOG . $row['product_slug'];
+            } else {
+                $row['product_link'] = HTTP_CATALOG . 'index.php?route=product/product&product_id=' . $row['product_id'];
+            }
 
             $rows[] = $row;
         }

@@ -16,6 +16,12 @@
 
     <div class="container-fluid">
         <div class="row">
+            <div class="col">
+                <div class="alert alert-danger" id="warning"></div>
+            </div>
+        </div>
+
+        <div class="row">
             <div id="filter-history" class="col-lg-3 col-md-12 order-lg-last d-none d-lg-block mb-3">
                 <div class="card">
                     <div class="card-header"><i class="fa-solid fa-filter"></i> {{ text_filter }}</div>
@@ -75,6 +81,12 @@
     </div>
   </div>
 </div>
+
+<style>
+.alert:empty {
+    display: none;
+}
+</style>
 
 <script>
     $('#history').on('click', 'thead a, .pagination a', function (e) {
@@ -141,7 +153,13 @@
             }
         )
         .then((res) => res.json())
-        .then(() => $('#button-filter').click())
+        .then((e) => {
+            if (e.error) {
+                $('#warning').text(e.error);
+                return
+            }
+            $('#button-filter').click()
+        })
         .catch(e => {
             console.log(e)
             alert('Error. See logs')

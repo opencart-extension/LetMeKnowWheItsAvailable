@@ -1,5 +1,5 @@
 <?php
-namespace OpenCart\Catalog\Controller\Extension\LetMeKnowWheItsAvailable\Module;
+namespace OpenCart\Catalog\Controller\Extension\LetMeKnowWheItsAvailable\Events;
 
 class Button extends \OpenCart\System\Engine\Controller {
     const EXTENSION_PREFIX = 'module_letmeknow_';

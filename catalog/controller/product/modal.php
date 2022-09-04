@@ -1,18 +1,18 @@
 <?php
-namespace OpenCart\Catalog\Controller\Extension\LetMeKnowWheItsAvailable\Module;
+namespace OpenCart\Catalog\Controller\Extension\LetMeKnowWheItsAvailable\Product;
 
 class Modal extends \OpenCart\System\Engine\Controller
 {
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
     const EXTENSION_PREFIX = 'module_letmeknow_';
-    const EXTENSION_PATH_MODULE = 'extension/' . self::EXTENSION_CODE . '/module';
-    const EXTENSION_MODAL = 'model_extension_' . self::EXTENSION_CODE . '_module_modal';
+    const EXTENSION_PATH_MODAL = 'extension/' . self::EXTENSION_CODE . '/product/modal';
+    const EXTENSION_MODAL = 'model_extension_' . self::EXTENSION_CODE . '_product_modal';
 
     /**
      * Exibe o modal para o usuário
      */
     public function index(): void {
-        $this->load->language(self::EXTENSION_PATH_MODULE . '/modal');
+        $this->load->language(self::EXTENSION_PATH_MODAL);
 
         $data = [];
 
@@ -35,14 +35,14 @@ class Modal extends \OpenCart\System\Engine\Controller
         $data['header'] = $this->load->controller('common/header');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODULE . '/modal', $data));
+        $this->response->setOutput($this->load->view(self::EXTENSION_PATH_MODAL, $data));
     }
 
     /**
      * Salva o registro ou imprime os erros
      */
     public function save(): void {
-        $this->load->language(self::EXTENSION_PATH_MODULE . '/modal');
+        $this->load->language(self::EXTENSION_PATH_MODAL);
 
         $this->load->model('account/custom_field');
 
@@ -74,7 +74,7 @@ class Modal extends \OpenCart\System\Engine\Controller
         }
 
         if (!$json) {
-            $this->load->model(self::EXTENSION_PATH_MODULE . '/modal');
+            $this->load->model(self::EXTENSION_PATH_MODAL);
 
             $this->{self::EXTENSION_MODAL}->add(
                 $this->request->post['name'],

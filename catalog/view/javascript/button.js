@@ -3,7 +3,7 @@ document.querySelectorAll('[button-letmeknow]').forEach((el) =>
 )
 
 function letMeKnowLoadModal(ev) {
-    fetch('/index.php?route=extension/LetMeKnowWheItsAvailable/module/modal&product_id=' + ev.target.dataset.productId)
+    fetch('/index.php?route=extension/LetMeKnowWheItsAvailable/product/modal&product_id=' + ev.target.dataset.productId)
         .then(res => res.text())
         .then(res => {
             document.querySelectorAll('[id^="letmeknow"]').forEach(el => el.remove())

@@ -155,7 +155,7 @@ class Letmeknow extends \OpenCart\System\Engine\Controller
             'code' => self::EXTENSION_CODE,
             'description' => 'Dispatch Notify',
             'trigger' => 'admin/model/catalog/product/editProduct/after',
-            'action' => self::EXTENSION_PATH_MODULE . '/dispatch_notify',
+            'action' => self::EXTENSION_PATH_EVENTS . '/dispatch_notify',
             'status' => 1,
             'sort_order' => 0
         ]);
@@ -164,7 +164,7 @@ class Letmeknow extends \OpenCart\System\Engine\Controller
             'code' => self::EXTENSION_CODE,
             'description' => 'Add Menu',
             'trigger' => 'admin/view/common/column_left/before',
-            'action' => self::EXTENSION_PATH_MODULE . '/menu',
+            'action' => self::EXTENSION_PATH_EVENTS . '/menu',
             'status' => 1,
             'sort_order' => 0
         ]);

@@ -23,6 +23,7 @@ class Notifier extends \OpenCart\System\Engine\Model
                 l.customer_name,
                 l.customer_email,
                 l.product_id,
+                l.currency_code,
                 pd.name AS product_name,
                 p.price AS product_price,
                 p.image AS product_image,
@@ -42,7 +43,7 @@ class Notifier extends \OpenCart\System\Engine\Model
         $rows = [];
 
         foreach ($query->rows as $row) {
-            $row['product_price'] = $this->currency->format($row['product_price'], $this->config->get('config_currency'));
+            $row['product_price'] = $this->currency->format($row['product_price'], $row['currency_code'] ?? $this->config->get('config_currency'));
             $row['product_image'] = HTTP_CATALOG . 'image/' . $row['product_image'];
             $row['product_description'] = html_entity_decode($row['product_description'], ENT_HTML5, 'UTF-8');
             $row['product_link'] = HTTP_CATALOG . 'index.php?route=product/product&product_id=' . $row['product_id'];

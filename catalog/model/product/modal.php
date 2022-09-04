@@ -8,7 +8,15 @@ class Modal extends \OpenCart\System\Engine\Model {
         int $product_id,
         array $custom_fields = [],
     ) {
-        $sql = "INSERT INTO `" . DB_PREFIX . "let_me_know` SET `customer_name` = '" . $this->db->escape($customer_name) . "', `customer_email` = '" . $this->db->escape($customer_email) . "', `product_id` = '" . $product_id . "', `language_id` = '" . (int)$this->config->get('config_language_id') . "', `custom_fields` = '" . $this->db->escape(json_encode($custom_fields)) . "'";
+        $sql = "
+            INSERT INTO `" . DB_PREFIX . "let_me_know`
+            SET `customer_name` = '" . $this->db->escape($customer_name) . "',
+                `customer_email` = '" . $this->db->escape($customer_email) . "',
+                `product_id` = '" . $product_id . "',
+                `language_id` = '" . (int)$this->config->get('config_language_id') . "',
+                `custom_fields` = '" . $this->db->escape(json_encode($custom_fields)) . "',
+                `currency_code` = '" . $this->db->escape($this->session->data['currency']) . "'
+            ";
 
         $this->db->query($sql);
     }

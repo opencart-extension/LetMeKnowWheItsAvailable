@@ -12,6 +12,7 @@ class Letmeknow extends \OpenCart\System\Engine\Model
                 `customer_email` VARCHAR(255) NOT NULL,
                 `product_id` INT(11) NOT NULL,
                 `language_id` INT(11) NOT NULL,
+                `currency_code` VARCHAR(3) NOT NULL,
                 `custom_fields` JSON NOT NULL,
                 `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
                 `concluded_at` DATETIME NULL,

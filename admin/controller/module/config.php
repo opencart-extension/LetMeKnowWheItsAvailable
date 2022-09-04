@@ -120,7 +120,7 @@ class Config extends \OpenCart\System\Engine\Controller
             $data_keys = array_map(fn($key) => self::EXTENSION_PREFIX . $key, array_keys($this->request->post));
             $data = array_combine($data_keys, array_values($this->request->post));
 
-            $this->model_setting_setting->editSetting(self::EXTENSION_PREFIX, $data);
+            $this->model_setting_setting->editSetting(rtrim(self::EXTENSION_PREFIX, '_'), $data);
 
             $json['success'] = $this->language->get('text_success');
         }

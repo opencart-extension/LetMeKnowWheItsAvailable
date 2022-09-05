@@ -20,6 +20,8 @@ class Table extends \OpenCart\System\Engine\Controller
 
         $this->load->language(self::EXTENSION_PATH_HISTORY . '/history');
 
+        $this->document->addScript('https://cdn.jsdelivr.net/npm/sweetalert2@11');
+
         $this->document->setTitle($this->language->get('heading_title'));
 
         $data['breadcrumbs'] = [];

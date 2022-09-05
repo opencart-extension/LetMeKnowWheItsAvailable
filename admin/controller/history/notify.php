@@ -1,6 +1,7 @@
 <?php
 namespace OpenCart\Admin\Controller\Extension\LetMeKnowWheItsAvailable\History;
 
+use Aws\Sqs\Exception\SqsException;
 use Aws\Sqs\Exception\SqsException\{
     TooManyEntriesInBatchRequest,
     EmptyBatchRequest,
@@ -79,6 +80,9 @@ class Notify extends \OpenCart\System\Engine\Controller
             } catch (UnsupportedOperation $e) {
                 Logger::error($e->getMessage(), ['Obj' => $e]);
                 $json['error'] = $this->language->get('error_unsupported_operation');
+            } catch (SqsException $e) {
+                Logger::error($e->getMessage(), ['Obj' => $e]);
+                $json['error'] = $e->getAwsErrorMessage();
             } catch (\Exception $e) {
                 Logger::error($e->getMessage(), ['Obj' => $e]);
                 $json['error'] = $this->language->get('error_unknow');

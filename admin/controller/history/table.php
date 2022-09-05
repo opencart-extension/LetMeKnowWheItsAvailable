@@ -36,6 +36,8 @@ class Table extends \OpenCart\System\Engine\Controller
             'href' => ''
         ];
 
+        $data['error_see_logs'] = $this->language->get('error_unknow');
+
         $data['list'] = $this->getList();
 
         $data['notify'] = $this->url->link(self::EXTENSION_PATH_HISTORY . '/notify', 'user_token=' . $this->session->data['user_token']);

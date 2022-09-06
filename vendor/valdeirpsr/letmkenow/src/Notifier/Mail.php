@@ -42,7 +42,7 @@ class Mail implements NotifierInterface
             $this->mail->setHtml($template->getContents($register));
             
             if ($this->mail->send()) {
-                $confirmed[] = $register['customer_email'];
+                $confirmed[] = $register['id'];
             } else {
                 Logger::error('E-mail não enviado para ' . $register['customer_email']);
             }

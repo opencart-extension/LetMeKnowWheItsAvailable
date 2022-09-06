@@ -58,7 +58,7 @@ class AmazonQueueService implements NotifierInterface
                 'MessageBody' => json_encode($register)
             ];
 
-            $unconfirmed[] = $register['customer_email'];
+            $unconfirmed[] = $register['id'];
 
             if (count($entries) % 1 === 0) {
                 $this->sqs->sendMessageBatch([

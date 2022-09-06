@@ -12,14 +12,15 @@ class Notifier extends \OpenCart\System\Engine\Model
     /**
      * Captura os registros de e-mails com base no ID do produto
      * 
-     * @param int $productId
+     * @param array<int> $ids
      * 
      * @return array
      */
-    public function getEmails(int $productId, ?string $email = ''): array
+    public function getRegistersById(array $ids): array
     {
         $sql = "
             SELECT
+                l.id,
                 l.customer_name,
                 l.customer_email,
                 l.product_id,
@@ -33,13 +34,9 @@ class Notifier extends \OpenCart\System\Engine\Model
             LEFT JOIN `" . DB_PREFIX . "product` p ON (p.product_id = l.product_id)
             LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.product_id = l.product_id AND pd.language_id = l.language_id)
             LEFT JOIN `" . DB_PREFIX . "seo_url` seo ON (seo.value = l.product_id AND seo.key = 'product_id' AND seo.language_id = l.language_id)
-            WHERE l.`product_id` = '" . $productId . "' and l.`concluded_at` IS NULL
+            WHERE l.`id` IN ('" . implode("','", $ids) . "') and l.`concluded_at` IS NULL
         ";
-
-        if ($email) {
-            $sql .= " AND l.`customer_email` = '" . $this->db->escape($email) . "'";
-        }
-
+        
         $query = $this->db->query($sql);
 
         $rows = [];
@@ -61,23 +58,35 @@ class Notifier extends \OpenCart\System\Engine\Model
         return $rows;
     }
 
+    public function getRegistersIdByProductId(int $productId): array
+    {
+        $sql = "
+            SELECT `id` FROM `" . DB_PREFIX . "let_me_know`
+            WHERE `product_id` = '" . $productId . "'
+                AND `concluded_at` IS NULL
+        ";
+
+        $query = $this->db->query($sql);
+
+        return $query->rows;
+    }
+
     /**
      * Confirma o envio
      * 
-     * @param array $emails
+     * @param array<int,int> $ids
      * 
      * @return void
      */
-    public function confirm(int $productId, array $emails): void
+    public function confirm(array $ids): void
     {
-        $emails = array_map(fn($item) => $this->db->escape($item), $emails);
+        $ids = array_map(fn($item) => intval($item), $ids);
 
         $this->db->query("
             UPDATE `" . DB_PREFIX . "let_me_know`
             SET `concluded_at` = CURRENT_TIMESTAMP,
                 `modified_at` = CURRENT_TIMESTAMP
-            WHERE `customer_email` IN ('" . implode("','", $emails) . "')
-                AND `product_id` = '" . $productId . "'
+            WHERE `id` IN ('" . implode("','", $ids) . "')
         ");
     }
 }

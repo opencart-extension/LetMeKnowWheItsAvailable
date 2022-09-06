@@ -13,6 +13,7 @@ class Modal extends \OpenCart\System\Engine\Model {
             SET `customer_name` = '" . $this->db->escape($customer_name) . "',
                 `customer_email` = '" . $this->db->escape($customer_email) . "',
                 `product_id` = '" . $product_id . "',
+                `product_price_old` = (SELECT p.`price` FROM `" . DB_PREFIX . "product` p WHERE p.product_id = '" . $product_id . "'),
                 `language_id` = '" . (int)$this->config->get('config_language_id') . "',
                 `custom_fields` = '" . $this->db->escape(json_encode($custom_fields)) . "',
                 `currency_code` = '" . $this->db->escape($this->session->data['currency']) . "'

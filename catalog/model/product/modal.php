@@ -1,5 +1,5 @@
 <?php
-namespace OpenCart\Catalog\Model\Extension\LetMeKnowWheItsAvailable\Module;
+namespace OpenCart\Catalog\Model\Extension\LetMeKnowWheItsAvailable\Product;
 
 class Modal extends \OpenCart\System\Engine\Model {
     public function add(

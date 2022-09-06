@@ -12,7 +12,7 @@ class Menu extends \OpenCart\System\Engine\Controller
         if ($this->config->get(self::EXTENSION_PREFIX . 'status')) {
             array_splice($data['menus'], 1, 0, [
                 [
-                    'id'       => 'menu-dashboard',
+                    'id'       => 'menu-letmeknow',
                     'icon'     => 'fas fa-bell',
                     'name'     => 'Let Me Know',
                     'href'     => $this->url->link(self::EXTENSION_PATH_HISTORY . '/table', 'user_token=' . $this->session->data['user_token']),

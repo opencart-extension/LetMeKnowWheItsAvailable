@@ -1,24 +1,24 @@
 <?php
 
-$_['heading_title'] = 'Avise-me quando disponível';
+$_['heading_title'] = 'Notify me when available';
 
-$_['text_filter'] = 'Filtros';
-$_['text_list'] = 'Lista';
-$_['text_waiting'] = 'Aguardando Reposição';
-$_['text_notified'] = 'Notificado';
+$_['text_filter'] = 'Filters';
+$_['text_list'] = 'List';
+$_['text_waiting'] = 'Waiting for stock';
+$_['text_notified'] = 'Notified';
 $_['text_dashboard'] = 'Dashboard';
 
-$_['entry_product_name'] = 'Nome do Produto';
-$_['entry_status'] = 'Situação';
+$_['entry_product_name'] = 'Product Name';
+$_['entry_status'] = 'Status';
 
-$_['column_customer_name'] = 'Cliente';
+$_['column_customer_name'] = 'Customer';
 $_['column_customer_email'] = 'E-mail';
-$_['column_product_name'] = 'Produto';
-$_['column_status'] = 'Situação';
-$_['column_action'] = 'Ação';
+$_['column_product_name'] = 'Product';
+$_['column_status'] = 'Status';
+$_['column_action'] = 'Action';
 
-$_['button_notify'] = 'Notificar';
-$_['button_product_edit'] = 'Editar Produto';
-$_['button_info'] = 'Detalhes';
+$_['button_notify'] = 'Notify';
+$_['button_product_edit'] = 'Edit Product';
+$_['button_info'] = 'Details';
 
-$_['error_engine_default_null'] = 'Configurações não definidas nas configurações do OpenCart';
+$_['error_engine_default_null'] = 'Settings not defined in OpenCart settings';

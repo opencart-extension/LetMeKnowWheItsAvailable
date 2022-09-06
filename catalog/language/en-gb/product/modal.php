@@ -1,15 +1,15 @@
 <?php
 
 // Heading
-$_['heading_title'] = 'Avise-me quando disponível';
+$_['heading_title'] = 'Notify me when available';
 
 // Text
-$_['text_success'] = 'Registro salvo. Entretaremos em contato.';
+$_['text_success'] = 'Record saved. We will be in touch.';
 
 // Entry
 $_['entry_name'] = 'Name';
 $_['entry_email'] = 'E-mail';
 
 // Error
-$_['error_validation'] = 'Valor inválido. Preencha-o corretamente';
-$_['error_required'] = 'Campo obrigatório';
+$_['error_validation'] = 'Invalid value. fill it in correctly';
+$_['error_required'] = 'Required field';

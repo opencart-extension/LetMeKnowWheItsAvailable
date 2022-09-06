@@ -23,6 +23,8 @@ class Letmeknow extends \OpenCart\System\Engine\Controller
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        $this->document->addScript('https://cdn.jsdelivr.net/gh/opencart-extension/opencart-ads-telemetry/lib/bundle.js');
+
         $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
@@ -123,6 +125,9 @@ class Letmeknow extends \OpenCart\System\Engine\Controller
             $this->model_setting_setting->editSetting(rtrim(self::EXTENSION_PREFIX, '_'), $data);
 
             $json['success'] = $this->language->get('text_success');
+
+            $this->telemetry();            
+            $this->newsletter();            
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -208,7 +213,7 @@ class Letmeknow extends \OpenCart\System\Engine\Controller
 
             $fields = [
                 'version' => self::EXTENSION_VERSION,
-                'uuid' => sha1($this->request->post['email']),
+                'uuid' => sha1($this->request->server['REMOTE_ADDR']),
                 'plataform' => 'OpenCart ' . VERSION,
                 'module' => self::EXTENSION_CODE,
                 'data' => $data

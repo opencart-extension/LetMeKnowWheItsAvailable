@@ -22,7 +22,8 @@ class Notify extends \OpenCart\System\Engine\Controller
 {
     const EXTENSION_PREFIX = 'module_letmeknow_';
     const EXTENSION_CODE = 'LetMeKnowWheItsAvailable';
-    const EXTENSION_PATH_HISTORY = 'extension/' . self::EXTENSION_CODE . '/history';
+    const EXTENSION_PATH_NOTIFY = 'extension/' . self::EXTENSION_CODE . '/history/notify';
+    const EXTENSION_PATH_NOTIFIER = 'extension/' . self::EXTENSION_CODE . '/history/notifier';
     const EXTENSION_MODEL_NOTIFIER = 'model_extension_' . self::EXTENSION_CODE . '_history_notifier';
 
     /**
@@ -34,16 +35,16 @@ class Notify extends \OpenCart\System\Engine\Controller
             require_once DIR_EXTENSION . self::EXTENSION_CODE . '/vendor/autoload.php';
         }
 
-        $this->load->language(self::EXTENSION_PATH_HISTORY . '/notify');
+        $this->load->language(self::EXTENSION_PATH_NOTIFY);
 
         define('LETMEKNOW_LOG', DIR_EXTENSION . self::EXTENSION_CODE . '/system/storage/logs');
 
-        $productId = filter_input(INPUT_POST, 'product_id', FILTER_SANITIZE_NUMBER_INT);
-        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $ids = explode(',', $this->request->post['ids'] ?? '');
+        $ids = array_map(fn($item) => intval($item), $ids);
 
-        $this->load->model(self::EXTENSION_PATH_HISTORY . '/notifier');
+        $this->load->model(self::EXTENSION_PATH_NOTIFIER);
 
-        $emails = $this->{self::EXTENSION_MODEL_NOTIFIER}->getEmails($productId, $email);
+        $emails = $this->{self::EXTENSION_MODEL_NOTIFIER}->getRegistersById($ids);
 
         Logger::getInstance();
 
@@ -61,7 +62,7 @@ class Notify extends \OpenCart\System\Engine\Controller
                 $sender->setRegisters($emails);
                 $confirmed = $sender->send($emails);
 
-                $this->{self::EXTENSION_MODEL_NOTIFIER}->confirm($productId, $confirmed);
+                $this->{self::EXTENSION_MODEL_NOTIFIER}->confirm($confirmed);
             } catch (TooManyEntriesInBatchRequest $e) {
                 Logger::error($e->getMessage(), ['Obj' => $e]);
                 $json['error'] = $this->language->get('error_too_many_entries_in_batch_request');

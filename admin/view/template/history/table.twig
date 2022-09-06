@@ -9,7 +9,7 @@
                 {% endfor %}
             </ol>
             <div class="float-end">
-
+                <button class="btn btn-light" id="button-notify-selected" disabled><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
@@ -117,6 +117,11 @@
         Swal.close();
     });
 
+    $('#history').on('input', 'td:first-child > input', function (e) {
+        const disabled = $('#history td:first-child > input:checked')
+        $('#button-notify-selected').prop('disabled', !disabled.length);
+    })
+
     $('#input-product-name').autocomplete({
         source: (request, response) => {
             $.ajax({
@@ -134,6 +139,13 @@
         }
     })
 
+    $('#button-notify-selected').on('click', function (e) {
+        const ids = $('#history td:first-child > input:checked').map((idx, el) => $(el).val())
+            .toArray();
+
+        notify(ids);
+    })
+
     function viewInfo(id) {
         Swal.showLoading();
 
@@ -148,18 +160,17 @@
         Swal.close();
     }
 
-    function notify(productId, email) {
+    function notify(ids) {
         Swal.showLoading();
 
-        const form = new FormData();
-        form.set('product_id', productId)
-        form.set('email', email)
+        const body = new FormData();
+        body.set('ids', ids)
 
         fetch(
             '{{ notify }}'.replaceAll('&amp;', '&'),
             {
                 method: 'POST',
-                body: form
+                body
             }
         )
         .then((res) => res.json())

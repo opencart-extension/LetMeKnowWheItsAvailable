@@ -4,7 +4,8 @@ namespace OpenCart\Catalog\Controller\Extension\LetMeKnowWheItsAvailable\Events;
 class Button extends \OpenCart\System\Engine\Controller {
     const EXTENSION_PREFIX = 'module_letmeknow_';
 
-    public function index(&$router, &$data, &$output) {
+    public function index(&$router, &$data, &$output)
+    {
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($data['product_id']);
@@ -30,7 +31,8 @@ class Button extends \OpenCart\System\Engine\Controller {
         }
     }
 
-    public function script() {
+    public function script()
+    {
         $this->document->addScript('extension/LetMeKnowWheItsAvailable/catalog/view/javascript/button.js', 'footer');
     }
 }

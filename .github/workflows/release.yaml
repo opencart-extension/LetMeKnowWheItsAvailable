@@ -1,0 +1,38 @@
+name: Create release
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  EXTENSION_CODE: LetMeKnowWheItsAvailable
+
+jobs:
+  new_release:
+    name: New Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install composer
+        run: wget -qO- https://getcomposer.org/installer | php
+
+      - name: Configure composer and install dependencies
+        run: |
+          cd vendor/valdeirpsr/letmkenow
+          php ../../../composer.phar config vendor-dir $(realpath "$(pwd)/../..")
+          php ../../../composer.phar install --no-dev
+          rm ../../../composer.phar
+
+      - name: Zip Files
+        run: |
+          ls -lah
+          zip -r "$EXTENSION_CODE.ocmod.zip" admin catalog vendor install.json
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ${{ env.EXTENSION_CODE }}.ocmod.zip
+          name: Release ${{ github.ref }}
+          tag: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}

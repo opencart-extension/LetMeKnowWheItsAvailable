@@ -17,6 +17,6 @@
     ],
     "minimum-stability": "stable",
     "config": {
-        "vendor-dir": "/var/www/html/extension/LetMeKnowWheItsAvailable/vendor"
+        "vendor-dir": "/var/www/html/extension/LetMeKnowWheItsAvailable/system/storage/vendor"
     }
 }

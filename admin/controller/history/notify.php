@@ -32,7 +32,7 @@ class Notify extends \OpenCart\System\Engine\Controller
     public function index(): void
     {
         if (!class_exists('\\ValdeirPsr\\Letmeknow\\Sender')) {
-            require_once DIR_EXTENSION . self::EXTENSION_CODE . '/vendor/autoload.php';
+            require_once DIR_EXTENSION . self::EXTENSION_CODE . '/system/storage/vendor/autoload.php';
         }
 
         $this->load->language(self::EXTENSION_PATH_NOTIFY);

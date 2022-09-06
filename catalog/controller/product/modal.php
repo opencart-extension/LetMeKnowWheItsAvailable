@@ -80,7 +80,7 @@ class Modal extends \OpenCart\System\Engine\Controller
                 $this->request->post['name'],
                 $this->request->post['email'],
                 43,
-                $this->request->post['custom_field']
+                $this->request->post['custom_field'] ?? []
             );
         }
 

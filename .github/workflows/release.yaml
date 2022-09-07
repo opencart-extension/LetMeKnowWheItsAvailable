@@ -15,14 +15,16 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install composer
-        run: wget -qO- https://getcomposer.org/installer | php
+        run: |
+          cd system/storage/vendor/valdeirpsr/letmkenow
+          wget -qO- https://getcomposer.org/installer | php
 
       - name: Configure composer and install dependencies
         run: |
-          cd vendor/valdeirpsr/letmkenow
-          php ../../../composer.phar config vendor-dir $(realpath "$(pwd)/../..")
-          php ../../../composer.phar install --no-dev
-          rm ../../../composer.phar
+          cd system/storage/vendor/valdeirpsr/letmkenow
+          php composer.phar config vendor-dir $(realpath "$(pwd)/../..")
+          php composer.phar install --no-dev
+          rm composer.phar
 
       - name: Zip Files
         run: |

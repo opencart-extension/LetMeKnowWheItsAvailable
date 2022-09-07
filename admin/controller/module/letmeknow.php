@@ -182,6 +182,22 @@ class Letmeknow extends \OpenCart\System\Engine\Controller
             'status' => 1,
             'sort_order' => 0
         ]);
+
+        $this->load->model('user/user_group');
+
+        $routes = [
+            '/events/dispatch_notify',
+            '/events/menu',
+            '/history/info',
+            '/history/notify',
+            '/history/table',
+            '/module/letmeknow',
+        ];
+        
+        foreach ($routes as $key => $value) {
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/' . self::EXTENSION_CODE . $value);
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/' . self::EXTENSION_CODE . $value);
+        }
     }
 
     /**

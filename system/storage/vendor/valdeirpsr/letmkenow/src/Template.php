@@ -22,7 +22,7 @@ class Template
         ];
 
         $templateLoader = new ArrayLoader(
-            ['template.twig' => html_entity_decode($config->get(self::EXTENSION_PREFIX . 'template_html'), ENT_NOQUOTES, 'UTF-8')],
+            ['template.twig' => html_entity_decode($config->get(self::EXTENSION_PREFIX . 'template_html'), ENT_QUOTES, 'UTF-8')],
             $templateConfig
         );
 

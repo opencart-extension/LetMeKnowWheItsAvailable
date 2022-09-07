@@ -63,6 +63,10 @@ class Letmeknow extends \OpenCart\System\Engine\Controller
             $this->url->link('customer/custom_field', 'user_token=' . $this->session->data['user_token'])
         );
 
+        $this->load->model('localisation/stock_status');
+
+		$data['stock_statuses'] = $this->model_localisation_stock_status->getStockStatuses();
+
         $data['action'] = $this->url->link(self::EXTENSION_PATH_MODULE . '|save', 'user_token=' . $this->session->data['user_token']);
         $data['back'] = $this->url->link('marketplace/extensions', 'user_token=' . $this->session->data['user_token'] . '&type=module');
 
@@ -312,7 +316,7 @@ class Letmeknow extends \OpenCart\System\Engine\Controller
                 'required' => true,
                 'telemetry' => true
             ],
-            'product_quantity' => [
+            'stock_status_id' => [
                 'required' => true,
                 'telemetry' => true
             ],

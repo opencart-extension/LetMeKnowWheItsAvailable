@@ -139,6 +139,8 @@ async function save() {
 
     divModal.querySelectorAll('[id^="error-"]').forEach(el => el.classList.remove('d-block'))
 
+    form.set('product_id', '{{ product_id }}')
+
     fetch('/index.php?route=extension/LetMeKnowWheItsAvailable/product/modal|save', { method: 'POST', body: form })
         .then((res) => res.json())
         .then((res) => {

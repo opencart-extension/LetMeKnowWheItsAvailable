@@ -9,9 +9,9 @@ class Button extends \OpenCart\System\Engine\Controller {
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($data['product_id']);
-        $min_quantity = $this->config->get(self::EXTENSION_PREFIX . 'product_quantity');
+        $stock_status_id = $this->config->get(self::EXTENSION_PREFIX . 'stock_status_id');
 
-        if ($product_info['quantity'] <= $min_quantity) {
+        if ($product_info['quantity'] === 0 && $product_info['stock_status_id'] <= $stock_status_id) {
             $buttonTitles = $this->config->get(self::EXTENSION_PREFIX . 'button_title');
 
             $buttonTitle = $buttonTitles[$this->config->get('config_language_id')] ?? reset($buttonTitles);

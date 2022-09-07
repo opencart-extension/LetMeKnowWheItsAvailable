@@ -29,7 +29,7 @@ $_['text_success']             = 'Settings changed successfully';
 
 // Entry
 $_['entry_status']             = 'Status';
-$_['entry_product_quantity']   = 'Quantity to display button';
+$_['entry_stock_status_id']    = 'Out-of-stock Status';
 $_['entry_terms']              = 'Terms';
 $_['entry_telemetry']          = 'Telemetry';
 $_['entry_newsletter']         = 'Newsletter';
@@ -50,7 +50,7 @@ $_['entry_border_color']       = 'Border color';
 $_['entry_button_size']        = 'Button Size';
 
 // Help
-$_['help_product_quantity']    = 'Enter the minimum quantity that the product must have for the button to be displayed';
+$_['help_stock_status_id']     = 'Select the product status when it\'s out of stock';
 $_['help_smtp_hostname']       = 'Add \'tls://\' or \'ssl://\' prefix if security connection is required. (e.g. tls://smtp.gmail.com, ssl://smtp.gmail.com).';
 $_['help_smtp_password']       = 'For Gmail you might need to setup an application specific password here: <a href="https://security.google.com/settings/security/apppasswords" target="_blank">https://security.google.com/settings/security/apppasswords</a>.';
 $_['help_sqs_region']          = 'Access <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Region availability</a> to see the list of regions';

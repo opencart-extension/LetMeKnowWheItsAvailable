@@ -64,11 +64,15 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="input-product-quantity" class="col-sm-2 col-form-label">{{ entry_product_quantity }}</label>
+                                <label for="input-stock-status-id" class="col-sm-2 col-form-label">{{ entry_stock_status_id }}</label>
                                 <div class="col-sm-10">
-                                    <input type="number" name="product_quantity" id="input-product-quantity" class="form-control" value="{{ product_quantity }}" />
-                                    <span class="form-text">{{ help_product_quantity }}</span>
-                                    <span id="error-product-quantity" class="invalid-feedback"></span>
+                                    <select name="stock_status_id" id="input-stock-status-id" class="form-select">
+                                        {% for stock_status in stock_statuses %}
+                                        <option value="{{ stock_status.stock_status_id }}" {{ stock_status.stock_status_id == stock_status_id ? 'selected' : '' }}>{{ stock_status.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <span class="form-text">{{ help_stock_status_id }}</span>
+                                    <span id="error-stock-status-id" class="invalid-feedback"></span>
                                 </div>
                             </div>
 

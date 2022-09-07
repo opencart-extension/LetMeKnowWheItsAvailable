@@ -31,6 +31,7 @@ class Modal extends \OpenCart\System\Engine\Controller
 		}
 
         $data['modal_size'] = $this->config->get(self::EXTENSION_PREFIX . 'modal_size');
+        $data['product_id'] = $this->request->get['product_id'];
 
         $data['header'] = $this->load->controller('common/header');
         $data['footer'] = $this->load->controller('common/footer');
@@ -79,7 +80,7 @@ class Modal extends \OpenCart\System\Engine\Controller
             $this->{self::EXTENSION_MODAL}->add(
                 $this->request->post['name'],
                 $this->request->post['email'],
-                43,
+                $this->request->post['product_id'],
                 $this->request->post['custom_field'] ?? []
             );
         }
